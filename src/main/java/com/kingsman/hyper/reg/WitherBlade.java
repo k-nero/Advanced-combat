@@ -34,11 +34,17 @@ public class WitherBlade extends SwordItem
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level p_40920_, Player p_40921_, @NotNull InteractionHand p_40922_)
     {
         ItemStack itemstack = p_40921_.getItemInHand(p_40922_);
-        p_40921_.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 500), p_40921_);
         WitherImpact witherImpact = new WitherImpact(p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), 8, Explosion.BlockInteraction.NONE);
         if (!p_40920_.isClientSide())
         {
-            witherImpact.BlastDmg(8, p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), 30);
+            if (p_40921_.hasEffect(MobEffects.ABSORPTION))
+            {
+                p_40921_.removeEffect(MobEffects.ABSORPTION);
+            }
+            p_40921_.setHealth(p_40921_.getHealth() - 2);
+            //p_40921_.hurt(DamageSource.sting(p_40921_), 2);
+            witherImpact.BlastDmg(8, p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), 40);
+            p_40921_.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 500, 1), p_40921_);
         }
         else
         {

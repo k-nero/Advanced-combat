@@ -2,6 +2,7 @@ package com.kingsman.hyper.reg;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
@@ -29,7 +30,7 @@ public class WitherImpact extends Explosion
         net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(level, this, list, f2);
         for (Entity entity : list)
         {
-            if (!entity.ignoreExplosion())
+            if (!entity.ignoreExplosion() && entity instanceof Monster)
             {
                 entity.hurt(this.getDamageSource(), dmg);
             }
