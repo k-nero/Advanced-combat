@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "EEE",
+    "ENE",
+    "EEE"
+  ],
+  "key": {
+    "N": {
+      "item": "hyper:wither_blade"
+    },
+    "E": {
+      "item": "minecraft:end_crystal"
+    }
+  },
+  "result": {
+    "item": "hyper:hyperion"
+  }
+}
