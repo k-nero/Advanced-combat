@@ -1,26 +1,18 @@
 package com.kingsman.hyper.reg;
 
-import com.google.common.collect.Multimap;
 import net.minecraft.core.particles.ParticleTypes;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
-import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.ai.attributes.Attribute;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.event.entity.player.ItemTooltipEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
 import org.jetbrains.annotations.NotNull;
 
 public class Hyperion extends WitherBlade
@@ -37,14 +29,21 @@ public class Hyperion extends WitherBlade
         WitherImpact witherImpact = new WitherImpact(p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), 8, Explosion.BlockInteraction.NONE);
         if (!p_40920_.isClientSide())
         {
-            if (p_40921_.hasEffect(MobEffects.ABSORPTION))
+            if (!p_40921_.isCreative())
             {
-                p_40921_.removeEffect(MobEffects.ABSORPTION);
+                if (p_40921_.hasEffect(MobEffects.ABSORPTION))
+                {
+                    p_40921_.removeEffect(MobEffects.ABSORPTION);
+                }
+                p_40921_.setHealth(p_40921_.getHealth() - 2);
+                p_40921_.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 500, 1), p_40921_);
+                if (p_40921_.isDeadOrDying())
+                {
+                    p_40921_.die(DamageSource.WITHER);
+                }
             }
-            p_40921_.setHealth(p_40921_.getHealth() - 2);
             //((hurtPlayer)p_40921_).actuallyHurt(DamageSource.sting(p_40921_), 2);
             witherImpact.BlastDmg(8, p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), 40);
-            p_40921_.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 500, 1), p_40921_);
         }
         else
         {
