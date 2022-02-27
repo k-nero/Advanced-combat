@@ -33,7 +33,6 @@ public class WitherBlade extends SwordItem
     public void appendHoverText(@NotNull ItemStack p_41421_, @Nullable Level p_41422_, @NotNull List<Component> p_41423_, @NotNull TooltipFlag p_41424_)
     {
         super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-        super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
         p_41423_.add(new TextComponent("\u00A76Ability: Death's Touch \u00A7r"));
         p_41423_.add(new TextComponent("\u00A77Upon hitting enemy inflict"));
         p_41423_.add(new TextComponent("\u00A77the wither effect for 20 seconds."));
