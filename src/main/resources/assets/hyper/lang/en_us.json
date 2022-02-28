@@ -2,5 +2,14 @@
   "item.hyper.hyperion": "Hyperion",
   "item.hyper.wither_blade": "Wither's Blade",
   "itemGroup.hyperion": "Hyperion",
-  "item.hyper.wither_blood": "Wither Blood"
+  "item.hyper.wither_blood": "Wither Blood",
+  "item.hyper.wither_helmet": "Wither's Helmet",
+  "item.hyper.wither_chestplate": "Wither's Chestplate",
+  "item.hyper.wither_leggings": "Wither's Leggings",
+  "item.hyper.wither_boots": "Wither's Boots",
+  "item.hyper.storm_helmet": "Storm's Helmet",
+  "item.hyper.storm_chestplate": "Storm's Chestplate",
+  "item.hyper.storm_leggings": "Storm's Leggings",
+  "item.hyper.storm_boots": "Storm's Boots",
+  "attribute.name.generic.ability_damage": " Ability damage "
 }

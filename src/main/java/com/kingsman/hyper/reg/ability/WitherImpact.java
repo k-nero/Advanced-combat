@@ -1,4 +1,4 @@
-package com.kingsman.hyper.reg;
+package com.kingsman.hyper.reg.ability;
 
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.Entity;

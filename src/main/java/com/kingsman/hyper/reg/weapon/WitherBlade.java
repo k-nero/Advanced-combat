@@ -1,4 +1,4 @@
-package com.kingsman.hyper.reg;
+package com.kingsman.hyper.reg.weapon;
 
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;

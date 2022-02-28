@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "minecraft:netherite_leggings"
+  },
+  "addition": {
+    "item": "hyper:wither_blood"
+  },
+  "result": {
+    "item": "hyper:wither_leggings"
+  }
+}
