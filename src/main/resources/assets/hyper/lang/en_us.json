@@ -11,5 +11,10 @@
   "item.hyper.storm_chestplate": "Storm's Chestplate",
   "item.hyper.storm_leggings": "Storm's Leggings",
   "item.hyper.storm_boots": "Storm's Boots",
-  "attribute.name.generic.ability_damage": " Ability damage "
+  "item.hyper.necron_helmet": "Necron's Helmet",
+  "item.hyper.necron_chestplate": "Necron's Chestplate",
+  "item.hyper.necron_leggings": "Necron's Leggings",
+  "item.hyper.necron_boots": "Necron's Boots",
+  "attribute.name.generic.ability_damage": "Ability damage ",
+  "attribute.name.generic.strength": "Attack damage "
 }

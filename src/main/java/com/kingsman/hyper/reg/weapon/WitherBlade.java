@@ -25,7 +25,7 @@ public class WitherBlade extends SwordItem
     @Override
     public boolean hurtEnemy(@NotNull ItemStack p_43278_, LivingEntity p_43279_, @NotNull LivingEntity p_43280_)
     {
-        p_43279_.addEffect(new MobEffectInstance(MobEffects.WITHER, 500), p_43280_);
+        p_43279_.addEffect(new MobEffectInstance(MobEffects.WITHER, 100), p_43280_);
         return super.hurtEnemy(p_43278_, p_43279_, p_43280_);
     }
 

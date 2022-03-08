@@ -1,8 +1,6 @@
 package com.kingsman.hyper.reg.weapon;
 
 import com.kingsman.hyper.reg.ability.WitherImpact;
-import com.kingsman.hyper.reg.armor.StormArmor;
-import com.kingsman.hyper.reg.armor.WitherArmorMaterial;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.network.chat.Component;
@@ -14,6 +12,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
@@ -29,7 +28,7 @@ import java.util.List;
 
 public class Hyperion extends WitherBlade
 {
-    private static final int baseAbilityDmg = 5;
+    private static final int baseAbilityDmg = 10;
     private static int AbilityDmg = 0;
 
     public static int getBaseAbilityDmg()
@@ -50,6 +49,7 @@ public class Hyperion extends WitherBlade
     public Hyperion(Tier p_43269_, int p_43270_, float p_43271_, Properties p_43272_)
     {
         super(p_43269_, p_43270_, p_43271_, p_43272_);
+        //Attributes.ATTACK_DAMAGE.setSyncable(true);
     }
 
     @Override
@@ -59,10 +59,6 @@ public class Hyperion extends WitherBlade
         WitherImpact witherImpact = new WitherImpact(p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), 8, Explosion.BlockInteraction.NONE);
         if (!p_40920_.isClientSide())
         {
-            if (!StormArmor.hasCorrectArmorOn(WitherArmorMaterial.STORM, p_40921_))
-            {
-                setAbilityDmg(0);
-            }
             if (!p_40921_.isCreative())
             {
                 if (p_40921_.hasEffect(MobEffects.ABSORPTION))
@@ -77,7 +73,7 @@ public class Hyperion extends WitherBlade
                 {
                     p_40921_.setHealth(p_40921_.getHealth() - 2);
                 }
-                p_40921_.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 500, 1), p_40921_);
+                p_40921_.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1), p_40921_);
             }
             witherImpact.BlastDmg(8, p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), AbilityDmg + baseAbilityDmg);
         }

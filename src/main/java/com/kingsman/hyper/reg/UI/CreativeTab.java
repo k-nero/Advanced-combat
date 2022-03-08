@@ -1,11 +1,11 @@
-package com.kingsman.hyper;
+package com.kingsman.hyper.reg.UI;
 
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import org.jetbrains.annotations.NotNull;
 
-public class ModSetup
+public class CreativeTab
 {
     public static final CreativeModeTab ITEM_GROUP = new CreativeModeTab("hyperion")
     {

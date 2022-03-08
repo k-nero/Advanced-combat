@@ -1,12 +1,12 @@
 package com.kingsman.hyper.reg.armor;
 
-import com.kingsman.hyper.reg.weapon.Hyperion;
-import net.minecraft.ChatFormatting;
+import com.google.common.collect.ImmutableMultimap;
+import com.google.common.collect.Multimap;
+import com.kingsman.hyper.reg.RegistryHandler;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ArmorItem;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.item.ArmorMaterial;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -16,52 +16,41 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
+import java.util.UUID;
 
 public class StormArmor extends WitherArmor
 {
     private static final int intelligent = 10;
-    private static int AbilityDamage = 0;
-
-    public static int getAbilityDamage()
-    {
-        return AbilityDamage;
-    }
+    Multimap<Attribute, AttributeModifier> defaultModifiers;
 
     public static int getIntelligent()
     {
         return intelligent;
     }
 
-    public static void setAbilityDamage(int abilityDamage)
-    {
-        AbilityDamage = abilityDamage;
-    }
-
     public StormArmor(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_)
     {
         super(p_40386_, p_40387_, p_40388_);
+        ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
+        defaultModifiers = super.getDefaultAttributeModifiers(p_40387_);
+        for (Attribute attributes : defaultModifiers.keySet())
+        {
+            Collection<AttributeModifier> attributeModifiers = defaultModifiers.get(attributes);
+            for (AttributeModifier modifier : attributeModifiers)
+            {
+                builder.put(attributes, modifier);
+            }
+        }
+        builder.put(RegistryHandler.ABILITY_DAMAGE, new AttributeModifier(UUID.randomUUID(), "Armor modifier", intelligent, AttributeModifier.Operation.ADDITION));
+        defaultModifiers = builder.build();
     }
 
-    private String setDescription()
+    @Override
+    public @NotNull Multimap<Attribute, AttributeModifier> getDefaultAttributeModifiers(@NotNull EquipmentSlot p_40390_)
     {
-        switch (Objects.requireNonNull(slot))
-        {
-            case FEET -> {
-                return " When on Feet";
-            }
-            case LEGS -> {
-                return " When on Legs";
-            }
-            case CHEST -> {
-                return " When on Chest";
-            }
-            case HEAD -> {
-                return " When on Head";
-            }
-            default -> throw new IllegalStateException("Unexpected value: " + slot);
-        }
+        return p_40390_ == this.slot ? this.defaultModifiers : super.getDefaultAttributeModifiers(p_40390_);
     }
 
     @Override
@@ -69,35 +58,5 @@ public class StormArmor extends WitherArmor
     public void appendHoverText(@NotNull ItemStack p_41421_, @Nullable Level p_41422_, @NotNull List<Component> p_41423_, @NotNull TooltipFlag p_41424_)
     {
         super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-        p_41423_.add((new TextComponent("+" + intelligent + " Ability damage ")).withStyle(ChatFormatting.AQUA));
-    }
-
-    public static boolean hasCorrectArmorOn(ArmorMaterial material, Player player)
-    {
-        AbilityDamage = 0;
-        for (int i = 0; i < 4; i++)
-        {
-            if (!player.getInventory().getArmor(i).isEmpty())
-            {
-                ArmorItem armor = ((ArmorItem) player.getInventory().getArmor(i).getItem());
-                if (armor.getMaterial().equals(material))
-                {
-                    AbilityDamage += intelligent;
-                }
-            }
-        }
-        return AbilityDamage != 0;
-    }
-
-    @Override
-    public void onArmorTick(ItemStack stack, Level world, Player player)
-    {
-        super.onArmorTick(stack, world, player);
-        if (!world.isClientSide)
-        {
-            Hyperion.setAbilityDmg(0);
-            hasCorrectArmorOn(WitherArmorMaterial.STORM, player);
-            Hyperion.setAbilityDmg(AbilityDamage);
-        }
     }
 }
