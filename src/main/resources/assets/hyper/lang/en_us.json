@@ -16,5 +16,9 @@
   "item.hyper.necron_leggings": "Necron's Leggings",
   "item.hyper.necron_boots": "Necron's Boots",
   "attribute.name.generic.ability_damage": "Ability damage ",
-  "attribute.name.generic.strength": "Attack damage "
+  "attribute.name.generic.strength": "Attack damage ",
+  "enchantment.hyper.blood_lost": "Blood Lost",
+  "enchantment.hyper.life_steal": "Life Steal",
+  "effect.hyper.bleed": "Bleed",
+  "attribute.hyper.power": "Power"
 }

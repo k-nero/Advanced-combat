@@ -1,6 +1,9 @@
 package com.kingsman.hyper.reg;
 
 import com.kingsman.hyper.ProjectHyper;
+import com.kingsman.hyper.reg.Effects.Bleed;
+import com.kingsman.hyper.reg.Enchantment.BuildUpEnchantment;
+import com.kingsman.hyper.reg.Enchantment.LifeStealEnchantment;
 import com.kingsman.hyper.reg.UI.CreativeTab;
 import com.kingsman.hyper.reg.armor.NecronArmor;
 import com.kingsman.hyper.reg.armor.StormArmor;
@@ -9,6 +12,8 @@ import com.kingsman.hyper.reg.armor.WitherArmorMaterial;
 import com.kingsman.hyper.reg.item.ItemTier;
 import com.kingsman.hyper.reg.weapon.Hyperion;
 import com.kingsman.hyper.reg.weapon.WitherBlade;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
@@ -16,6 +21,8 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
@@ -28,6 +35,13 @@ public class RegistryHandler
 {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ProjectHyper.MODID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ProjectHyper.MODID);
+    public static final DeferredRegister<Attribute> ATTRIBUTE = DeferredRegister.create(Attribute.class, ProjectHyper.MODID);
+    public static final DeferredRegister<Enchantment> ENCHANTMENT = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, ProjectHyper.MODID);
+    public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, ProjectHyper.MODID);
+    public static final RegistryObject<Attribute> POWER = ATTRIBUTE.register("power", () -> new RangedAttribute("hyper.power", 2.0, 0.0, 2048.0));
+    public static final RegistryObject<MobEffect> BLEED = EFFECTS.register("bleed", () -> new Bleed(MobEffectCategory.NEUTRAL, 0xff0000));
+    public static final RegistryObject<Enchantment> LIFE_STEAL = ENCHANTMENT.register("life_steal", () -> new LifeStealEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND));
+    public static final RegistryObject<Enchantment> BLOOD_LOST = ENCHANTMENT.register("blood_lost", () -> new BuildUpEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
     public static final Attribute ABILITY_DAMAGE = new RangedAttribute("attribute.name.generic.ability_damage", 2.0D, 0.0D, 2048.0D).setSyncable(true);
     public static final Attribute STRENGTH = new RangedAttribute("attribute.name.generic.strength", 0.0D, 0.0D, 2048.0D).setSyncable(true);
     public static final RegistryObject<Item> WITHER_BLOOD = ITEMS.register("wither_blood", () -> new Item(new Item.Properties().tab(CreativeTab.ITEM_GROUP).stacksTo(16)));
@@ -61,5 +75,8 @@ public class RegistryHandler
     public static void init(IEventBus eventBus)
     {
         ITEMS.register(eventBus);
+        ENCHANTMENT.register(eventBus);
+        ATTRIBUTE.register(eventBus);
+        EFFECTS.register(eventBus);
     }
 }
