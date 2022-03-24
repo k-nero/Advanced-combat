@@ -1,14 +1,17 @@
 package com.kingsman.hyper.reg.Effects;
 
 import com.kingsman.hyper.reg.RegistryHandler;
+import com.mojang.blaze3d.shaders.Effect;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
+import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Objects;
 
@@ -44,19 +47,25 @@ public class Bleed extends MobEffect
         {
             if (target.getEffect(RegistryHandler.BLEED.get()) == null)
             {
-                target.addEffect(new MobEffectInstance(RegistryHandler.BLEED.get(), 200, level));
+                target.addEffect(new MobEffectInstance(RegistryHandler.BLEED.get(), 200, level - 1));
             }
             else
             {
                 int tmp = Objects.requireNonNull(target.getEffect(RegistryHandler.BLEED.get())).getAmplifier();
                 target.removeEffect(RegistryHandler.BLEED.get());
                 target.addEffect(new MobEffectInstance(RegistryHandler.BLEED.get(), 200, level + tmp));
-                if (Objects.requireNonNull(target.getEffect(RegistryHandler.BLEED.get())).getAmplifier() >= 5)
-                {
-                    target.hurt(new DamageSource("Bleed"), 50.0F);
-                    target.removeEffect(RegistryHandler.BLEED.get());
-                }
             }
+        }
+    }
+
+    @Override
+    public void applyEffectTick(@NotNull LivingEntity p_19467_, int p_19468_)
+    {
+        super.applyEffectTick(p_19467_, p_19468_);
+        if (Objects.requireNonNull(p_19467_.getEffect(RegistryHandler.BLEED.get())).getAmplifier() >= 4)
+        {
+            p_19467_.hurt(new DamageSource("Bleed").bypassArmor().bypassInvul().bypassMagic(), 100.0F);
+            p_19467_.removeEffect(RegistryHandler.BLEED.get());
         }
     }
 }

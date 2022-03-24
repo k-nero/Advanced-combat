@@ -79,7 +79,7 @@ public class ServerEventHandler
     }
 
     @SubscribeEvent
-    public static void actualDmg(LivingDamageEvent event)
+    public static void setActualDmg(LivingDamageEvent event)
     {
         LifeStealEnchantment.setFinalDmg(event.getAmount());
     }
