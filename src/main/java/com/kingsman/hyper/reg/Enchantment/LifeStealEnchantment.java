@@ -7,6 +7,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 
 public class LifeStealEnchantment extends Enchantment
 {
@@ -45,16 +46,28 @@ public class LifeStealEnchantment extends Enchantment
         return 5;
     }
 
-    public static void LifeSteal(LivingEntity player, LivingEntity target)
+    public static void LifeSteal(LivingDamageEvent event)
     {
-        float maxHP = player.getMaxHealth();
-        float HP = player.getHealth();
-        double finalHeal = 0;
-        double LF = EnchantmentHelper.getItemEnchantmentLevel(RegistryHandler.LIFE_STEAL.get(), player.getMainHandItem()) * LifeStealEnchantment.getBaseStat();
-        if (LF >= 0)
+        Player player = null;
+        if (event.getSource().getEntity() instanceof Player)
         {
-            finalHeal = LF * finalDmg;
+            player = (Player) event.getSource().getEntity();
         }
-        player.heal((float) finalHeal);
+        LivingEntity target = null;
+        if (event.getEntity() instanceof LivingEntity)
+        {
+            target = (LivingEntity) event.getEntity();
+        }
+        if (player != null && target != null && !event.getSource().isMagic() && !event.getSource().isExplosion())
+        {
+            double finalHeal = 0;
+            double LF = EnchantmentHelper.getItemEnchantmentLevel(RegistryHandler.LIFE_STEAL.get(), player.getMainHandItem()) * LifeStealEnchantment.getBaseStat();
+            if (LF >= 0)
+            {
+                finalHeal = LF * event.getAmount();
+            }
+            player.heal((float) finalHeal);
+        }
+
     }
 }
