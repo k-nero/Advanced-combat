@@ -26,6 +26,7 @@ import java.util.Objects;
 @Mod.EventBusSubscriber
 public class ServerEventHandler
 {
+    private static float trueDamage;
     @SubscribeEvent
     public static void onArmorChange(LivingEquipmentChangeEvent event)
     {
@@ -61,11 +62,20 @@ public class ServerEventHandler
     public static void onLivingDamageEvent(LivingDamageEvent event)
     {
         LifeStealEnchantment.LifeSteal(event);
+        if (event.getSource().isMagic())
+        {
+            trueDamage = event.getAmount();
+        }
     }
 
     @SubscribeEvent
     public static void onLivingAttackEvent(LivingAttackEvent event)
     {
         Bleed.applyingEffect(event);
+    }
+
+    public static float getTrueDamage()
+    {
+        return trueDamage;
     }
 }

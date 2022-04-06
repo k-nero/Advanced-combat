@@ -55,7 +55,6 @@ public class Bleed extends MobEffect
         if (player != null)
         {
             ItemStack itemStack = player.getMainHandItem();
-
             int level = EnchantmentHelper.getItemEnchantmentLevel(RegistryHandler.BLOOD_LOST.get(), itemStack);
             if (target != null && level >= 0)
             {
@@ -79,9 +78,10 @@ public class Bleed extends MobEffect
         super.applyEffectTick(p_19467_, p_19468_);
         if (Objects.requireNonNull(p_19467_.getEffect(RegistryHandler.BLEED.get())).getAmplifier() >= 4)
         {
-            p_19467_.hurt(new DamageSource("Bleed").bypassArmor().bypassInvul().bypassMagic(), 50.0F);
+            p_19467_.hurt(new DamageSource("Bleed").bypassArmor().bypassInvul().bypassMagic(), p_19467_.getMaxHealth() / 4);
             p_19467_.removeEffect(RegistryHandler.BLEED.get());
             BloodParticle.addParticle(p_19467_);
         }
     }
+
 }

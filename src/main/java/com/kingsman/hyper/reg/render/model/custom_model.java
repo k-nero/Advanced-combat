@@ -1,4 +1,4 @@
-package com.kingsman.hyper.reg.client.model;// Made with Blockbench 4.1.5
+package com.kingsman.hyper.reg.render.model;// Made with Blockbench 4.1.5
 // Exported for Minecraft version 1.17 with Mojang mappings
 // Paste this class into your mod and generate all required imports
 

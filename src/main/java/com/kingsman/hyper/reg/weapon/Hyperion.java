@@ -1,5 +1,6 @@
 package com.kingsman.hyper.reg.weapon;
 
+import com.kingsman.hyper.reg.ability.InstantTransportation;
 import com.kingsman.hyper.reg.ability.WitherImpact;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -67,7 +68,7 @@ public class Hyperion extends WitherBlade
         p_41423_.add(new TextComponent("\u00A77the wither effect for 20 seconds."));
         p_41423_.add(new TextComponent(""));
         p_41423_.add(new TextComponent("\u00A76Ability: Wither Impact \u00A7r\u00A7e\u00A7lRIGHT CLICK \u00A7r"));
-        p_41423_.add(new TextComponent("\u00A77When implode dealing \u00A7r").append(String.valueOf(AbilityDmg + baseAbilityDmg)).withStyle(ChatFormatting.RED));
+        p_41423_.add(new TextComponent("\u00A77When implode dealing \u00A7r").append(String.valueOf(AbilityDmg + baseAbilityDmg)).withStyle(ChatFormatting.AQUA));
         p_41423_.add(new TextComponent("\u00A77damages to nearby enemies. "));
         p_41423_.add(new TextComponent("\u00A77Also applies the Absorption effect\u00A7r"));
         p_41423_.add(new TextComponent("\u00A77in 5 seconds.\u00A7r"));

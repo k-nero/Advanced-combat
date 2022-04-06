@@ -8,7 +8,6 @@ import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.monster.*;
 import net.minecraft.world.entity.monster.piglin.Piglin;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.event.entity.living.LivingAttackEvent;
 
 import java.util.Objects;
 
@@ -73,7 +72,7 @@ public class BloodParticle
             particle = getParticle(entity);
             if (entity.getLevel().isClientSide())
             {
-                for (int i = 0; i < 50; i++)
+                for (int i = 0; i < entity.getMaxHealth() / 4; i++)
                 {
                     entity.getLevel().addParticle(particle, false, x, y, z, 0, 0, 0);
                 }

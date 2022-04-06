@@ -1,6 +1,9 @@
 package com.kingsman.hyper.reg.ability;
 
+import com.kingsman.hyper.reg.EventHandler.ServerEventHandler;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -25,7 +28,7 @@ public class WitherImpact extends Explosion
         super(p_151471_, p_151472_, p_151473_, p_151474_, p_151475_, p_151476_);
     }
 
-    public void BlastDmg(float radius, Level level, Entity source, double x, double y, double z, float dmg)
+    public void BlastAura(float radius, Level level, Entity source, double x, double y, double z, float dmg)
     {
         float f2 = radius * 2.0F;
         int k1 = Mth.floor(x - (double) f2 - 1.0D);
@@ -65,10 +68,11 @@ public class WitherImpact extends Explosion
                 }
                 p_40921_.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1), p_40921_);
             }
-            this.BlastDmg(8, p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), AOE + dmg);
+            this.BlastAura(8, p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), AOE + dmg);
         }
         else
         {
+            p_40921_.displayClientMessage(new TextComponent("Your Wither Explosion deal ").append(String.valueOf(ServerEventHandler.getTrueDamage())).withStyle(ChatFormatting.AQUA), true);
             p_40920_.addParticle(ParticleTypes.EXPLOSION, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), 12.0D, 0.0D, 0.0D);
             p_40920_.playLocalSound(p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), SoundEvents.GENERIC_EXPLODE, SoundSource.BLOCKS, 4.0F, (1.0F + (p_40920_.random.nextFloat() - p_40920_.random.nextFloat()) * 0.2F) * 0.7F, false);
         }
