@@ -22,4 +22,10 @@ public class BuildUpEnchantment extends Enchantment
     {
         return 1;
     }
+
+    @Override
+    public boolean isTreasureOnly()
+    {
+        return true;
+    }
 }

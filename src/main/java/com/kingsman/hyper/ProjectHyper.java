@@ -1,7 +1,7 @@
 package com.kingsman.hyper;
 
 import com.kingsman.hyper.reg.RegistryHandler;
-import net.minecraft.world.level.block.Blocks;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
@@ -29,8 +29,6 @@ public class ProjectHyper
 
     private void setup(final FMLCommonSetupEvent event)
     {
-        // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Blocks.DIRT.getRegistryName());
+
     }
 }

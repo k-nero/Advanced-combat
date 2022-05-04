@@ -48,11 +48,12 @@ public class Hyperion extends WitherBlade
     @Override
     public @NotNull InteractionResultHolder<ItemStack> use(@NotNull Level p_40920_, @NotNull Player p_40921_, @NotNull InteractionHand p_40922_)
     {
+        InstantTransportation transportation = new InstantTransportation(10, p_40921_);
+        transportation.teleport();
         ItemStack itemstack = p_40921_.getItemInHand(p_40922_);
-        WitherImpact witherImpact = new WitherImpact(p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), 8, Explosion.BlockInteraction.NONE);
         if (p_40922_ == InteractionHand.MAIN_HAND)
         {
-            witherImpact.Implosion(p_40920_, p_40921_, AbilityDmg, baseAbilityDmg);
+            new WitherImpact(p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), 8, Explosion.BlockInteraction.NONE, AbilityDmg, baseAbilityDmg);
         }
         return InteractionResultHolder.success(itemstack);
     }

@@ -46,6 +46,12 @@ public class LifeStealEnchantment extends Enchantment
         return 5;
     }
 
+    @Override
+    public boolean isTreasureOnly()
+    {
+        return true;
+    }
+
     public static void LifeSteal(LivingDamageEvent event)
     {
         Player player = null;

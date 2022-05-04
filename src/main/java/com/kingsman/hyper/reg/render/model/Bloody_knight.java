@@ -3,6 +3,7 @@ package com.kingsman.hyper.reg.render.model;// Made with Blockbench 4.1.5
 // Paste this class into your mod and generate all required imports
 
 
+import com.kingsman.hyper.ProjectHyper;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.model.EntityModel;
@@ -12,15 +13,16 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 
-public class custom_model<T extends Entity> extends EntityModel<T>
+public class Bloody_knight<T extends Entity> extends EntityModel<T>
 {
-    // This layer location should be baked with EntityRendererProvider.Context in the entity renderer and passed into this model's constructor
-    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation("modid", "custom_model"), "main");
+    // This layer location should be baked with EntityRendererProvider.Context in the entity Knight_Renderer and passed into this model's constructor
+    public static final ModelLayerLocation LAYER_LOCATION = new ModelLayerLocation(new ResourceLocation(ProjectHyper.MODID, "Bloody_knight"), "main");
     private final ModelPart outer;
     private final ModelPart inner;
 
-    public custom_model(ModelPart root)
+    public Bloody_knight(ModelPart root)
     {
         this.outer = root.getChild("outer");
         this.inner = root.getChild("inner");
@@ -61,13 +63,13 @@ public class custom_model<T extends Entity> extends EntityModel<T>
     }
 
     @Override
-    public void setupAnim(T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
+    public void setupAnim(@NotNull T entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch)
     {
 
     }
 
     @Override
-    public void renderToBuffer(PoseStack poseStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
+    public void renderToBuffer(@NotNull PoseStack poseStack, @NotNull VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha)
     {
         outer.render(poseStack, buffer, packedLight, packedOverlay);
         inner.render(poseStack, buffer, packedLight, packedOverlay);

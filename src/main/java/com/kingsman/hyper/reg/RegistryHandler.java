@@ -10,13 +10,17 @@ import com.kingsman.hyper.reg.armor.StormArmor;
 import com.kingsman.hyper.reg.armor.WitherArmor;
 import com.kingsman.hyper.reg.armor.WitherArmorMaterial;
 import com.kingsman.hyper.reg.item.ItemTier;
+import com.kingsman.hyper.reg.monster.boss.Knight;
 import com.kingsman.hyper.reg.weapon.Hyperion;
 import com.kingsman.hyper.reg.weapon.WitherBlade;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
-import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
+import net.minecraft.world.entity.monster.Zombie;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -38,12 +42,14 @@ public class RegistryHandler
     public static final DeferredRegister<Attribute> ATTRIBUTE = DeferredRegister.create(Attribute.class, ProjectHyper.MODID);
     public static final DeferredRegister<Enchantment> ENCHANTMENT = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, ProjectHyper.MODID);
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, ProjectHyper.MODID);
+    public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITIES, ProjectHyper.MODID);
     public static final RegistryObject<Attribute> POWER = ATTRIBUTE.register("power", () -> new RangedAttribute("hyper.power", 2.0, 0.0, 2048.0));
     public static final RegistryObject<MobEffect> BLEED = EFFECTS.register("bleed", () -> new Bleed(MobEffectCategory.NEUTRAL, 0xff0000));
     public static final RegistryObject<Enchantment> LIFE_STEAL = ENCHANTMENT.register("life_steal", () -> new LifeStealEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND));
     public static final RegistryObject<Enchantment> BLOOD_LOST = ENCHANTMENT.register("blood_lost", () -> new BuildUpEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
     public static final Attribute ABILITY_DAMAGE = new RangedAttribute("attribute.name.generic.ability_damage", 2.0D, 0.0D, 2048.0D).setSyncable(true);
     public static final Attribute STRENGTH = new RangedAttribute("attribute.name.generic.strength", 0.0D, 0.0D, 2048.0D).setSyncable(true);
+    public static final RegistryObject<EntityType<Knight>> BLOODY_KNIGHT = ENTITY_TYPE.register("bloody_knight", () -> EntityType.Builder.of(Knight::new, MobCategory.MONSTER).fireImmune().sized(0.6F, 1.8F).setTrackingRange(14).canSpawnFarFromPlayer().build("bloody_knight"));
     public static final RegistryObject<Item> WITHER_BLOOD = ITEMS.register("wither_blood", () -> new Item(new Item.Properties().tab(CreativeTab.ITEM_GROUP).stacksTo(16)));
     public static final RegistryObject<Item> HYPERION = ITEMS.register("hyperion", () -> new Hyperion(ItemTier.WITHER, 10, -2.5f, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.EPIC).fireResistant()));
     public static final RegistryObject<Item> WITHER_BLADE = ITEMS.register("wither_blade", () -> new WitherBlade(ItemTier.WITHER, 8, -3f, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.RARE).fireResistant()));
@@ -78,5 +84,6 @@ public class RegistryHandler
         ENCHANTMENT.register(eventBus);
         ATTRIBUTE.register(eventBus);
         EFFECTS.register(eventBus);
+        ENTITY_TYPE.register(eventBus);
     }
 }
