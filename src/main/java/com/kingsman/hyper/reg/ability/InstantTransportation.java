@@ -73,7 +73,7 @@ public class InstantTransportation
             {
                 y += 2;
             }
-            entity.setPos(x, y, z);
+            entity.teleportTo(x, y, z);
         }
         ;
     }
