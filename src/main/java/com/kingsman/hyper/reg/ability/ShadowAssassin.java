@@ -15,6 +15,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ShadowAssassin
 {
@@ -61,16 +62,14 @@ public class ShadowAssassin
 
     public void teleportToBack(LivingEntity entity, Player player)
     {
-        Minecraft minecraft = Minecraft.getInstance();
         BlockPos pos = ((BlockHitResult) pickEntityBack(1.0D, 0.0F, false, entity)).getBlockPos();
-        player.teleportTo(pos.getX(), pos.getY(), pos.getZ() + 0.5);
-        if (!(minecraft.crosshairPickEntity instanceof LivingEntity))
+        if (!player.getViewVector(0).equals(entity.getViewVector(0)))
         {
-            player.setXRot(entity.getXRot());
-            player.setYRot(entity.getYRot());
-            //TODO: set camera rotation
-            player.attack(entity);
+            player.setXRot(entity.xRotO);
+            player.setYRot(entity.yRotO);
         }
+        player.teleportTo(pos.getX(), pos.getY(), pos.getZ() + 0.5);
+        player.attack(entity);
     }
 
     public HitResult pickEntityBack(double p_19908_, float p_19909_, boolean p_19910_, LivingEntity entity)
