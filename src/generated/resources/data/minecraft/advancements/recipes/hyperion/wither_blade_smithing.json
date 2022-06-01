@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "minecraft:wither_blade_smithing"
+    ]
+  },
+  "criteria": {
+    "has_wither_blood": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hyper:wither_blood"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:wither_blade_smithing"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wither_blood",
+      "has_the_recipe"
+    ]
+  ]
+}

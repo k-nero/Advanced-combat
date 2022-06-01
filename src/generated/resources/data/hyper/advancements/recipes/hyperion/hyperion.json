@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "hyper:hyperion"
+    ]
+  },
+  "criteria": {
+    "has_wither_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hyper:wither_blade"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "hyper:hyperion"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wither_blade",
+      "has_the_recipe"
+    ]
+  ]
+}

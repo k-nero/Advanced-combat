@@ -1,7 +1,6 @@
 package com.kingsman.hyper;
 
 import com.kingsman.hyper.reg.RegistryHandler;
-import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;

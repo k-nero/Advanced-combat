@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "hyper:necron_leggings"
+    ]
+  },
+  "criteria": {
+    "has_wither_chestplate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hyper:wither_leggings"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "hyper:necron_leggings"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wither_chestplate",
+      "has_the_recipe"
+    ]
+  ]
+}

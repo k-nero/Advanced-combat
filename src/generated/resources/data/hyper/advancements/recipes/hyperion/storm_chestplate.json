@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "hyper:storm_chestplate"
+    ]
+  },
+  "criteria": {
+    "has_wither_chestplate": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "hyper:wither_chestplate"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "hyper:storm_chestplate"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_wither_chestplate",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "EEE",
-    "ENE",
-    "EEE"
+    "NNN",
+    "NWN",
+    "NNN"
   ],
   "key": {
-    "N": {
-      "item": "hyper:wither_blade"
+    "W": {
+      "item": "hyper:wither_leggings"
     },
-    "E": {
+    "N": {
       "item": "minecraft:end_crystal"
     }
   },
   "result": {
-    "item": "hyper:hyperion"
+    "item": "hyper:storm_leggings"
   }
 }

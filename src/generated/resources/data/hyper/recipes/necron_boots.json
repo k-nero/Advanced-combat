@@ -1,19 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "WWW",
-    "WNW",
-    "WWW"
+    "NNN",
+    "NWN",
+    "NNN"
   ],
   "key": {
-    "N": {
-      "item": "minecraft:nether_star"
-    },
     "W": {
+      "item": "hyper:wither_boots"
+    },
+    "N": {
       "item": "minecraft:wither_skeleton_skull"
     }
   },
   "result": {
-    "item": "hyper:wither_blood"
+    "item": "hyper:necron_boots"
   }
 }

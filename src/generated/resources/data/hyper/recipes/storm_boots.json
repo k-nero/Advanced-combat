@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "NNN",
+    "NWN",
+    "NNN"
+  ],
+  "key": {
+    "W": {
+      "item": "hyper:wither_boots"
+    },
+    "N": {
+      "item": "minecraft:end_crystal"
+    }
+  },
+  "result": {
+    "item": "hyper:storm_boots"
+  }
+}
