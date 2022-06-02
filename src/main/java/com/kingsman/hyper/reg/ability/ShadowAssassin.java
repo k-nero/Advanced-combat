@@ -2,9 +2,12 @@ package com.kingsman.hyper.reg.ability;
 
 import net.minecraft.commands.arguments.EntityAnchorArgument;
 import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
+import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.ClipContext;
@@ -15,6 +18,7 @@ import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
 
 import java.util.List;
+import java.util.Objects;
 
 public class ShadowAssassin
 {
@@ -30,8 +34,9 @@ public class ShadowAssassin
         return radius;
     }
 
-    public void deathArea(Level level, Entity source)
+    public void deathArea(Level level, Entity source) throws InterruptedException
     {
+        Player player = (Player) source;
         double x = source.getX();
         double y = source.getY();
         double z = source.getZ();
@@ -43,37 +48,35 @@ public class ShadowAssassin
         int j2 = Mth.floor(z - (double) f2 - 1.0D);
         int j1 = Mth.floor(z + (double) f2 + 1.0D);
         List<Entity> list = level.getEntities(source, new AABB(k1, i2, j2, l1, i1, j1));
-        int counter = 0;
-        for (Entity entity : list)
+        if (!list.isEmpty())
         {
-            if (entity instanceof Monster && ((Monster) entity).attackable())
+            for (Entity entity : list)
             {
-                entity.hurtMarked = true;
-                Player player = (Player) source;
-                teleportToBack((LivingEntity) entity, player);
-                if (entity.hurtMarked)
+                if (entity instanceof Monster)
                 {
-                    player.attack(entity);
+                    teleportToBack((LivingEntity) entity, player);
+                    entity.hurt(DamageSource.playerAttack(player), (float) Objects.requireNonNull(player.getAttribute(Attributes.ATTACK_DAMAGE)).getValue());
+                    Thread.sleep(1000);
                 }
-                counter++;
-            }
-            if (counter >= 5)
-            {
-                break;
             }
         }
     }
 
     public void teleportToBack(LivingEntity entity, Player player)
     {
-        BlockPos pos = ((BlockHitResult) pickEntityBack(1.0D, 0.0F, false, entity)).getBlockPos();
+        BlockPos pos = ((BlockHitResult) pickEntityBack(2.0D, 0.0F, false, entity)).getBlockPos();
         if (!player.getViewVector(0).equals(entity.getViewVector(0)))
         {
             player.setXRot(entity.xRotO);
             player.setYRot(entity.yRotO);
-            //TODO: rework camera rotation
+            player.setYHeadRot(player.getYRot());
+            player.xRotO = player.getXRot();
+            player.yRotO = player.getYRot();
+            player.yHeadRotO = player.yHeadRot;
+            player.yBodyRot = player.yHeadRot;
+            player.yBodyRotO = player.yBodyRot;
         }
-        player.teleportTo(pos.getX(), pos.getY() + 0.5, pos.getZ());
+        player.teleportTo(pos.getX(), pos.getY(), pos.getZ());
     }
 
     public HitResult pickEntityBack(double p_19908_, float p_19909_, boolean p_19910_, LivingEntity entity)

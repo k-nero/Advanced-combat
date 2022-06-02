@@ -26,7 +26,14 @@ public class ShadowFury extends SwordItem
         if (p_40922_ == InteractionHand.MAIN_HAND && !p_40920_.isClientSide)
         {
             ShadowAssassin shadowAssassin = new ShadowAssassin();
-            shadowAssassin.deathArea(p_40920_, p_40921_);
+            try
+            {
+                shadowAssassin.deathArea(p_40920_, p_40921_);
+            }
+            catch (InterruptedException e)
+            {
+                throw new RuntimeException(e);
+            }
         }
         return InteractionResultHolder.success(itemstack);
     }
