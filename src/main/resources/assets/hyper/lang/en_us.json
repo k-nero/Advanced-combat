@@ -15,10 +15,15 @@
   "item.hyper.necron_chestplate": "Necron's Chestplate",
   "item.hyper.necron_leggings": "Necron's Leggings",
   "item.hyper.necron_boots": "Necron's Boots",
+  "item.hyper.shadow_fury": "Shadow Fury",
   "attribute.name.generic.ability_damage": "Ability damage ",
   "attribute.name.generic.strength": "Attack damage ",
   "enchantment.hyper.blood_lost": "Blood Lost",
   "enchantment.hyper.life_steal": "Life Steal",
   "effect.hyper.bleed": "Bleed",
-  "attribute.hyper.power": "Power"
+  "effect.hyper.bleeding_immunity": "Bleeding Immunity",
+  "attribute.hyper.power": "Power",
+  "item.minecraft.lingering_potion.effect.bleeding_immunity": "Lingering Potion of Bleeding Immunity",
+  "item.minecraft.splash_potion.effect.bleeding_immunity": "Splash Potion of Bleeding Immunity",
+  "item.minecraft.potion.effect.bleeding_immunity": "Potion of Bleeding Immunity"
 }

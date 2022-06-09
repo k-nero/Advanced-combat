@@ -2,6 +2,7 @@ package com.kingsman.hyper.reg;
 
 import com.kingsman.hyper.ProjectHyper;
 import com.kingsman.hyper.reg.Effects.Bleed;
+import com.kingsman.hyper.reg.Effects.BleedingImmunity;
 import com.kingsman.hyper.reg.Enchantment.BuildUpEnchantment;
 import com.kingsman.hyper.reg.Enchantment.LifeStealEnchantment;
 import com.kingsman.hyper.reg.UI.CreativeTab;
@@ -16,6 +17,7 @@ import com.kingsman.hyper.reg.weapon.ShadowFury;
 import com.kingsman.hyper.reg.weapon.WitherBlade;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
+import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.MobCategory;
@@ -25,6 +27,7 @@ import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Rarity;
+import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.block.Block;
@@ -40,11 +43,13 @@ public class RegistryHandler
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ProjectHyper.MODID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ProjectHyper.MODID);
     public static final DeferredRegister<Attribute> ATTRIBUTE = DeferredRegister.create(Attribute.class, ProjectHyper.MODID);
+    public static final DeferredRegister<Potion> POTIONS = DeferredRegister.create(Potion.class, ProjectHyper.MODID);
     public static final DeferredRegister<Enchantment> ENCHANTMENT = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, ProjectHyper.MODID);
     public static final DeferredRegister<MobEffect> EFFECTS = DeferredRegister.create(ForgeRegistries.MOB_EFFECTS, ProjectHyper.MODID);
     public static final DeferredRegister<EntityType<?>> ENTITY_TYPE = DeferredRegister.create(ForgeRegistries.ENTITIES, ProjectHyper.MODID);
     public static final RegistryObject<Attribute> POWER = ATTRIBUTE.register("power", () -> new RangedAttribute("hyper.power", 2.0, 0.0, 2048.0));
     public static final RegistryObject<MobEffect> BLEED = EFFECTS.register("bleed", () -> new Bleed(MobEffectCategory.NEUTRAL, 0xff0000));
+    public static final RegistryObject<MobEffect> BLEEDING_IMMUNITY = EFFECTS.register("bleeding_immunity", () -> new BleedingImmunity(MobEffectCategory.BENEFICIAL, 0x00ff00));
     public static final RegistryObject<Enchantment> LIFE_STEAL = ENCHANTMENT.register("life_steal", () -> new LifeStealEnchantment(Enchantment.Rarity.VERY_RARE, EquipmentSlot.MAINHAND));
     public static final RegistryObject<Enchantment> BLOOD_LOST = ENCHANTMENT.register("blood_lost", () -> new BuildUpEnchantment(Enchantment.Rarity.VERY_RARE, EnchantmentCategory.WEAPON, EquipmentSlot.MAINHAND));
     public static final Attribute ABILITY_DAMAGE = new RangedAttribute("attribute.name.generic.ability_damage", 2.0D, 0.0D, 2048.0D).setSyncable(true);
@@ -67,6 +72,9 @@ public class RegistryHandler
     public static final RegistryObject<Item> NECRON_BOOTS = ITEMS.register("necron_boots", () -> new NecronArmor(WitherArmorMaterial.NECRON, EquipmentSlot.FEET, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.EPIC).fireResistant()));
 
     public static final RegistryObject<Item> SHADOW_FURY = ITEMS.register("shadow_fury", () -> new ShadowFury(ItemTier.WITHER, 8, -3f, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.RARE)));
+
+    public static final RegistryObject<Potion> BLEEDING_IMMUNITY_POTION = POTIONS.register("bleeding_immunity", () -> new Potion(new MobEffectInstance(RegistryHandler.BLEEDING_IMMUNITY.get(), 600, 0)));
+
     private static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block, CreativeModeTab tab)
     {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
@@ -86,5 +94,6 @@ public class RegistryHandler
         ATTRIBUTE.register(eventBus);
         EFFECTS.register(eventBus);
         ENTITY_TYPE.register(eventBus);
+        POTIONS.register(eventBus);
     }
 }

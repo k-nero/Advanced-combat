@@ -40,6 +40,12 @@ public class Bleed extends MobEffect
         return super.isDurationEffectTick(p_19455_, p_19456_);
     }
 
+    @Override
+    public boolean isBeneficial()
+    {
+        return false;
+    }
+
     public static void applyingEffect(LivingAttackEvent event)
     {
         Player player = null;
@@ -52,11 +58,16 @@ public class Bleed extends MobEffect
         {
             target = (LivingEntity) event.getEntity();
         }
+        assert target != null;
+        if (target.getEffect(RegistryHandler.BLEEDING_IMMUNITY.get()) != null)
+        {
+            return;
+        }
         if (player != null)
         {
             ItemStack itemStack = player.getMainHandItem();
             int level = EnchantmentHelper.getItemEnchantmentLevel(RegistryHandler.BLOOD_LOST.get(), itemStack);
-            if (target != null && level >= 0)
+            if (level >= 0)
             {
                 if (target.getEffect(RegistryHandler.BLEED.get()) == null)
                 {

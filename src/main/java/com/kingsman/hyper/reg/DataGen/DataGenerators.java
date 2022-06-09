@@ -16,5 +16,6 @@ public class DataGenerators
         DataGenerator generator = event.getGenerator();
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         generator.addProvider(new HyperRecipeProvider(generator));
+        generator.addProvider(new HyperItemModelProvider(generator, existingFileHelper));
     }
 }
