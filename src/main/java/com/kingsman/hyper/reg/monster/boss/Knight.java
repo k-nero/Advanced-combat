@@ -189,12 +189,6 @@ public class Knight extends Monster
     }
 
     @Override
-    public void startAutoSpinAttack(int p_21327_)
-    {
-        super.startAutoSpinAttack(p_21327_);
-    }
-
-    @Override
     protected void registerGoals()
     {
         super.registerGoals();
