@@ -25,14 +25,17 @@ import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.manager.AnimationData;
+import software.bernie.geckolib3.core.manager.AnimationFactory;
 
 import java.util.Objects;
 
-public class Knight extends Monster
+public class Knight extends Monster implements IAnimatable
 {
-    public Knight(EntityType<? extends Monster> p_33002_, Level p_33003_)
+    public Knight(EntityType<? extends Monster> entityType, Level level)
     {
-        super(p_33002_, p_33003_);
+        super(entityType, level);
     }
 
     @Override
@@ -169,6 +172,12 @@ public class Knight extends Monster
         return super.getParts();
     }
 
+    @Override
+    public float getStepHeight()
+    {
+        return super.getStepHeight();
+    }
+
     @NotNull
     @Override
     public <T> LazyOptional<T> getCapability(@NotNull Capability<T> cap)
@@ -285,6 +294,25 @@ public class Knight extends Monster
 
     public static AttributeSupplier.Builder createAttributes()
     {
-        return Monster.createMonsterAttributes().add(Attributes.MAX_HEALTH, 160.0D).add(Attributes.MOVEMENT_SPEED, (double) 1.0F).add(Attributes.ATTACK_DAMAGE, 5.0D).add(Attributes.ATTACK_KNOCKBACK, 1.0D).add(Attributes.ATTACK_SPEED, (double) 4.0F).add(Attributes.ARMOR, (double) 10.0F).add(Attributes.ARMOR_TOUGHNESS, (double) 5.0F).add(Attributes.KNOCKBACK_RESISTANCE, (double) 0.8F).add(Attributes.FOLLOW_RANGE, (double) 20.0F);
+        return Monster.createMonsterAttributes()
+                .add(Attributes.MAX_HEALTH, 160.0D)
+                .add(Attributes.MOVEMENT_SPEED, (double) 1.0F)
+                .add(Attributes.ATTACK_DAMAGE, 5.0D)
+                .add(Attributes.ATTACK_KNOCKBACK, 1.0D)
+                .add(Attributes.ATTACK_SPEED, (double) 4.0F)
+                .add(Attributes.ARMOR, (double) 10.0F).add(Attributes.ARMOR_TOUGHNESS, (double) 5.0F)
+                .add(Attributes.KNOCKBACK_RESISTANCE, (double) 0.8F).add(Attributes.FOLLOW_RANGE, (double) 20.0F);
+    }
+
+    @Override
+    public void registerControllers(AnimationData data)
+    {
+
+    }
+
+    @Override
+    public AnimationFactory getFactory()
+    {
+        return null;
     }
 }

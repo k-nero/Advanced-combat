@@ -125,10 +125,15 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
-    maven {
+    maven{
         // location of a maven mirror for JEI files, as a fallback
         url = "https://cursemaven.com"
     }
+    maven
+            {
+                url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
+            }
+
 }
 
 dependencies {
@@ -136,10 +141,9 @@ dependencies {
     // that the dep is a ForgeGradle 'patcher' dependency, and its patches will be applied.
     // The userdev artifact is a special name and will get all sorts of transformations applied to it.
     minecraft 'net.minecraftforge:forge:1.18.2-40.1.51'
-
+    implementation fg.deobf('software.bernie.geckolib:geckolib-forge-1.18:3.0.24')
     compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api")
     runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}")
-    implementation fg.deobf("curse.maven:the-one-probe-245211:3550084")
     // Real mod deobf dependency examples - these get remapped to your current mappings
     // compileOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}:api") // Adds JEI API as a compile dependency
     // runtimeOnly fg.deobf("mezz.jei:jei-${mc_version}:${jei_version}") // Adds the full JEI mod as a runtime dependency

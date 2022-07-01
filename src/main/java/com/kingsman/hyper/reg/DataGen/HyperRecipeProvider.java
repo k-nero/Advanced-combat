@@ -2,7 +2,6 @@ package com.kingsman.hyper.reg.DataGen;
 
 import com.kingsman.hyper.reg.RegistryHandler;
 import net.minecraft.advancements.critereon.ItemPredicate;
-import net.minecraft.core.Registry;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
@@ -11,8 +10,10 @@ import net.minecraft.data.recipes.UpgradeRecipeBuilder;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.Objects;
 import java.util.function.Consumer;
 
 public class HyperRecipeProvider extends RecipeProvider implements IConditionBuilder
@@ -107,19 +108,19 @@ public class HyperRecipeProvider extends RecipeProvider implements IConditionBui
                 .save(p_240632_);
         UpgradeRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_SWORD.asItem()), Ingredient.of(RegistryHandler.WITHER_BLOOD.get()), RegistryHandler.WITHER_BLADE.get())
                 .unlocks("has_wither_blood", has(RegistryHandler.WITHER_BLOOD.get()))
-                .save(p_240632_, Registry.ITEM.getKey(RegistryHandler.WITHER_BLADE.get()).getPath() + "_smithing");
+                .save(p_240632_, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(RegistryHandler.WITHER_BLADE.get())).getPath() + "_smithing");
         UpgradeRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_CHESTPLATE.asItem()), Ingredient.of(RegistryHandler.WITHER_BLOOD.get()), RegistryHandler.WITHER_CHESTPLATE.get())
                 .unlocks("has_wither_blood", has(RegistryHandler.WITHER_BLOOD.get()))
-                .save(p_240632_, Registry.ITEM.getKey(RegistryHandler.WITHER_CHESTPLATE.get()).getPath() + "_smithing");
+                .save(p_240632_, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(RegistryHandler.WITHER_CHESTPLATE.get())).getPath() + "_smithing");
         UpgradeRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_LEGGINGS.asItem()), Ingredient.of(RegistryHandler.WITHER_BLOOD.get()), RegistryHandler.WITHER_LEGGING.get())
                 .unlocks("has_wither_blood", has(RegistryHandler.WITHER_BLOOD.get()))
-                .save(p_240632_, Registry.ITEM.getKey(RegistryHandler.WITHER_LEGGING.get()).getPath() + "_smithing");
+                .save(p_240632_, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(RegistryHandler.WITHER_LEGGING.get())).getPath() + "_smithing");
         UpgradeRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_BOOTS.asItem()), Ingredient.of(RegistryHandler.WITHER_BLOOD.get()), RegistryHandler.WITHER_BOOTS.get())
                 .unlocks("has_wither_blood", has(RegistryHandler.WITHER_BLOOD.get()))
-                .save(p_240632_, Registry.ITEM.getKey(RegistryHandler.WITHER_BOOTS.get()).getPath() + "_smithing");
+                .save(p_240632_, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(RegistryHandler.WITHER_BOOTS.get())).getPath() + "_smithing");
         UpgradeRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_HELMET.asItem()), Ingredient.of(RegistryHandler.WITHER_BLOOD.get()), RegistryHandler.WITHER_HELMET.get())
                 .unlocks("has_wither_blood", has(RegistryHandler.WITHER_BLOOD.get()))
-                .save(p_240632_, Registry.ITEM.getKey(RegistryHandler.WITHER_HELMET.get()).getPath() + "_smithing");
+                .save(p_240632_, Objects.requireNonNull(ForgeRegistries.ITEMS.getKey(RegistryHandler.WITHER_HELMET.get())).getPath() + "_smithing");
 
     }
 }
