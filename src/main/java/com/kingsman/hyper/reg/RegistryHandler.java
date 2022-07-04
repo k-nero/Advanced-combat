@@ -10,11 +10,13 @@ import com.kingsman.hyper.reg.armor.NecronArmor;
 import com.kingsman.hyper.reg.armor.StormArmor;
 import com.kingsman.hyper.reg.armor.WitherArmor;
 import com.kingsman.hyper.reg.armor.WitherArmorMaterial;
+import com.kingsman.hyper.reg.block.entity.orbs.OverFluxEntity;
+import com.kingsman.hyper.reg.block.model.orbs.OverFlux;
 import com.kingsman.hyper.reg.item.ItemTier;
+import com.kingsman.hyper.reg.item.orbs.OverFluxItem;
 import com.kingsman.hyper.reg.weapon.Hyperion;
 import com.kingsman.hyper.reg.weapon.ShadowFury;
 import com.kingsman.hyper.reg.weapon.WitherBlade;
-import com.kingsman.hyper.reg.world.structures.TestStructure;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
@@ -30,7 +32,10 @@ import net.minecraft.world.item.alchemy.Potion;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.entity.BlockEntityType;
+import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
+import net.minecraft.world.level.material.Material;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -40,6 +45,7 @@ import java.util.function.Supplier;
 
 public class RegistryHandler
 {
+    public static final DeferredRegister<BlockEntityType<?>> BLOCK_ENTITY = DeferredRegister.create(ForgeRegistries.BLOCK_ENTITIES, ProjectHyper.MODID);
     public static final DeferredRegister<StructureFeature<?>> DEFERRED_REGISTER_STRUCTURE = DeferredRegister.create(ForgeRegistries.STRUCTURE_FEATURES, ProjectHyper.MODID);
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, ProjectHyper.MODID);
     public static final DeferredRegister<Block> BLOCKS = DeferredRegister.create(ForgeRegistries.BLOCKS, ProjectHyper.MODID);
@@ -70,12 +76,14 @@ public class RegistryHandler
     public static final RegistryObject<Item> NECRON_CHESTPLATE = ITEMS.register("necron_chestplate", () -> new NecronArmor(WitherArmorMaterial.NECRON, EquipmentSlot.CHEST, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.EPIC).fireResistant()));
     public static final RegistryObject<Item> NECRON_LEGGING = ITEMS.register("necron_leggings", () -> new NecronArmor(WitherArmorMaterial.NECRON, EquipmentSlot.LEGS, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.EPIC).fireResistant()));
     public static final RegistryObject<Item> NECRON_BOOTS = ITEMS.register("necron_boots", () -> new NecronArmor(WitherArmorMaterial.NECRON, EquipmentSlot.FEET, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.EPIC).fireResistant()));
-
+    public static final RegistryObject<Block> OVERFLUX = BLOCKS.register("overflux", () -> new OverFlux(BlockBehaviour.Properties.of(Material.STONE).noCollission()));
     public static final RegistryObject<Item> SHADOW_FURY = ITEMS.register("shadow_fury", () -> new ShadowFury(ItemTier.WITHER, 8, -3f, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.RARE)));
 
     public static final RegistryObject<Potion> BLEEDING_IMMUNITY_POTION = POTIONS.register("bleeding_immunity", () -> new Potion(new MobEffectInstance(RegistryHandler.BLEEDING_IMMUNITY.get(), 600, 0)));
     //TODO: finish the structure json file
     //public static final RegistryObject<StructureFeature<?>> TEST_STRUCTURE = DEFERRED_REGISTER_STRUCTURE.register("test_structure", TestStructure::new);
+    public static final RegistryObject<Item> OVERFLUX_ITEM = ITEMS.register("overflux_item", () -> new OverFluxItem(RegistryHandler.OVERFLUX.get(), new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.RARE)));
+    public static final RegistryObject<BlockEntityType<OverFluxEntity>> OVERFLUX_ENTITY = BLOCK_ENTITY.register("overflux_entity", () -> BlockEntityType.Builder.of(OverFluxEntity::new, OVERFLUX.get()).build(null));
     private static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block, CreativeModeTab tab)
     {
         RegistryObject<T> toReturn = BLOCKS.register(name, block);
@@ -96,6 +104,8 @@ public class RegistryHandler
         EFFECTS.register(eventBus);
         ENTITY_TYPE.register(eventBus);
         POTIONS.register(eventBus);
+        BLOCK_ENTITY.register(eventBus);
+        BLOCKS.register(eventBus);
         DEFERRED_REGISTER_STRUCTURE.register(eventBus);
     }
 }

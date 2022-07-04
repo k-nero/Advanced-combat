@@ -25,5 +25,6 @@
   "attribute.hyper.power": "Power",
   "item.minecraft.lingering_potion.effect.bleeding_immunity": "Lingering Potion of Bleeding Immunity",
   "item.minecraft.splash_potion.effect.bleeding_immunity": "Splash Potion of Bleeding Immunity",
-  "item.minecraft.potion.effect.bleeding_immunity": "Potion of Bleeding Immunity"
+  "item.minecraft.potion.effect.bleeding_immunity": "Potion of Bleeding Immunity",
+  "block.hyper.overflux": "Overflux"
 }
