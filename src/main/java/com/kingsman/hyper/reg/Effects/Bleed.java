@@ -59,7 +59,7 @@ public class Bleed extends MobEffect
             target = (LivingEntity) event.getEntity();
         }
         assert target != null;
-        if (target.getEffect(RegistryHandler.BLEEDING_IMMUNITY.get()) != null)
+        if (target.hasEffect(RegistryHandler.BLEEDING_IMMUNITY.get()))
         {
             return;
         }
@@ -69,7 +69,7 @@ public class Bleed extends MobEffect
             int level = EnchantmentHelper.getItemEnchantmentLevel(RegistryHandler.BLOOD_LOST.get(), itemStack);
             if (level >= 0)
             {
-                if (target.getEffect(RegistryHandler.BLEED.get()) == null)
+                if (!target.hasEffect(RegistryHandler.BLEED.get()))
                 {
                     target.addEffect(new MobEffectInstance(RegistryHandler.BLEED.get(), 200, level - 1));
                 }
