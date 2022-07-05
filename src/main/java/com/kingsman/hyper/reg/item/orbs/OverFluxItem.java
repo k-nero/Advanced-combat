@@ -40,12 +40,10 @@ public class OverFluxItem extends BlockItem implements IAnimatable
         super.initializeClient(consumer);
         consumer.accept(new IItemRenderProperties()
         {
-            private final BlockEntityWithoutLevelRenderer renderer = new OverFluxItemRenderer();
-
             @Override
             public BlockEntityWithoutLevelRenderer getItemStackRenderer()
             {
-                return renderer;
+                return new OverFluxItemRenderer();
             }
         });
     }
@@ -53,6 +51,6 @@ public class OverFluxItem extends BlockItem implements IAnimatable
     @Override
     public AnimationFactory getFactory()
     {
-        return null;
+        return this.factory;
     }
 }

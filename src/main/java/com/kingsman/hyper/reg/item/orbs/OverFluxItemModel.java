@@ -6,7 +6,6 @@ import software.bernie.geckolib3.model.AnimatedGeoModel;
 
 public class OverFluxItemModel extends AnimatedGeoModel<OverFluxItem>
 {
-
     @Override
     public ResourceLocation getModelLocation(OverFluxItem object)
     {
@@ -16,7 +15,7 @@ public class OverFluxItemModel extends AnimatedGeoModel<OverFluxItem>
     @Override
     public ResourceLocation getTextureLocation(OverFluxItem object)
     {
-        return new ResourceLocation(ProjectHyper.MODID, "textures/entity/overflux_entity.png");
+        return new ResourceLocation(ProjectHyper.MODID, "textures/machines/overflux_entity.png");
     }
 
     @Override

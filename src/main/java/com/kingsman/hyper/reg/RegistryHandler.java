@@ -76,13 +76,13 @@ public class RegistryHandler
     public static final RegistryObject<Item> NECRON_CHESTPLATE = ITEMS.register("necron_chestplate", () -> new NecronArmor(WitherArmorMaterial.NECRON, EquipmentSlot.CHEST, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.EPIC).fireResistant()));
     public static final RegistryObject<Item> NECRON_LEGGING = ITEMS.register("necron_leggings", () -> new NecronArmor(WitherArmorMaterial.NECRON, EquipmentSlot.LEGS, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.EPIC).fireResistant()));
     public static final RegistryObject<Item> NECRON_BOOTS = ITEMS.register("necron_boots", () -> new NecronArmor(WitherArmorMaterial.NECRON, EquipmentSlot.FEET, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.EPIC).fireResistant()));
-    public static final RegistryObject<Block> OVERFLUX = BLOCKS.register("overflux", () -> new OverFlux(BlockBehaviour.Properties.of(Material.STONE).noCollission()));
+    public static final RegistryObject<Block> OVERFLUX = BLOCKS.register("overflux", () -> new OverFlux(BlockBehaviour.Properties.of(Material.STONE).noOcclusion()));
     public static final RegistryObject<Item> SHADOW_FURY = ITEMS.register("shadow_fury", () -> new ShadowFury(ItemTier.WITHER, 8, -3f, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.RARE)));
 
     public static final RegistryObject<Potion> BLEEDING_IMMUNITY_POTION = POTIONS.register("bleeding_immunity", () -> new Potion(new MobEffectInstance(RegistryHandler.BLEEDING_IMMUNITY.get(), 600, 0)));
     //TODO: finish the structure json file
     //public static final RegistryObject<StructureFeature<?>> TEST_STRUCTURE = DEFERRED_REGISTER_STRUCTURE.register("test_structure", TestStructure::new);
-    public static final RegistryObject<Item> OVERFLUX_ITEM = ITEMS.register("overflux_item", () -> new OverFluxItem(RegistryHandler.OVERFLUX.get(), new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> OVERFLUX_ITEM = ITEMS.register("overflux", () -> new OverFluxItem(RegistryHandler.OVERFLUX.get(), new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.RARE)));
     public static final RegistryObject<BlockEntityType<OverFluxEntity>> OVERFLUX_ENTITY = BLOCK_ENTITY.register("overflux_entity", () -> BlockEntityType.Builder.of(OverFluxEntity::new, OVERFLUX.get()).build(null));
     private static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block, CreativeModeTab tab)
     {

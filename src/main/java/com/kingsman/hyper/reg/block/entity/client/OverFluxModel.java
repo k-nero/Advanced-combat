@@ -16,7 +16,7 @@ public class OverFluxModel extends AnimatedGeoModel<OverFluxEntity>
     @Override
     public ResourceLocation getTextureLocation(OverFluxEntity object)
     {
-        return new ResourceLocation(ProjectHyper.MODID, "textures/entity/overflux_entity.png");
+        return new ResourceLocation(ProjectHyper.MODID, "textures/machines/overflux_entity.png");
     }
 
     @Override
