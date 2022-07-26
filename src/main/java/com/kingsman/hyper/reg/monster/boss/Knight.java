@@ -2,52 +2,62 @@ package com.kingsman.hyper.reg.monster.boss;
 
 import com.kingsman.hyper.reg.RegistryHandler;
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.util.Mth;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.ai.goal.*;
-import net.minecraft.world.entity.ai.goal.target.HurtByTargetGoal;
+import net.minecraft.world.entity.ai.goal.LookAtPlayerGoal;
+import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
+import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
+import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
-import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.monster.Monster;
-import net.minecraft.world.entity.monster.RangedAttackMob;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.HitResult;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.entity.PartEntity;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.PlayState;
+import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.controller.AnimationController;
+import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.Objects;
-
 public class Knight extends Monster implements IAnimatable
 {
+    private final AnimationFactory factory = new AnimationFactory( this);
     public Knight(EntityType<? extends Monster> entityType, Level level)
     {
         super(entityType, level);
     }
 
+    private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
+    {
+        if(event.isMoving())
+        {
+            event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.model.walking", true));
+            return PlayState.CONTINUE;
+        }
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.model.idle", true));
+        return PlayState.CONTINUE;
+    }
+
     @Override
     public @NotNull Iterable<ItemStack> getArmorSlots()
     {
-        return null;
+        return super.getArmorSlots();
     }
 
     @Override
     public @NotNull ItemStack getItemBySlot(@NotNull EquipmentSlot p_21127_)
     {
-        return null;
+        return super.getItemBySlot(p_21127_);
     }
 
     @Override
@@ -59,7 +69,7 @@ public class Knight extends Monster implements IAnimatable
     @Override
     public @NotNull HumanoidArm getMainArm()
     {
-        return null;
+        return super.getMainArm();
     }
 
     @Override
@@ -165,12 +175,6 @@ public class Knight extends Monster implements IAnimatable
      *
      * @return The child parts of this entity. The value to be returned here should be cached.
      */
-    @Nullable
-    @Override
-    public PartEntity<?>[] getParts()
-    {
-        return super.getParts();
-    }
 
     @Override
     public float getStepHeight()
@@ -206,70 +210,66 @@ public class Knight extends Monster implements IAnimatable
         this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1.0D));
         this.goalSelector.addGoal(6, new MeleeAttackGoal(this, 1.0D, true));
         this.goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.goalSelector.addGoal(6, new RangedAttackGoal((RangedAttackMob) this, 2.0D, 20, 20.0F)
-        {
-            private int attackTime = -1;
-            private int seeTime;
-
-            @Override
-            public boolean canUse()
-            {
-                super.canUse();
-                Vec3 thisPos = new Vec3(getX(), getY(), getZ());
-                Vec3 targetPos = new Vec3(Objects.requireNonNull(getTarget()).getX(), getTarget().getY(), getTarget().getZ());
-                return thisPos.distanceTo(targetPos) > 10 && hasLineOfSight(getTarget());
-            }
-
-            @Override
-            public void tick()
-            {
-                double d0 = distanceToSqr(Objects.requireNonNull(getTarget()).getX(), getTarget().getY(), getTarget().getZ());
-                boolean flag = getSensing().hasLineOfSight(getTarget());
-                if (flag)
-                {
-                    ++this.seeTime;
-                }
-                else
-                {
-                    this.seeTime = 0;
-                }
-
-                double attackRadiusSqr = 20.0D * 20.0D;
-                if (!(d0 > (double) attackRadiusSqr) && this.seeTime >= 5)
-                {
-                    getNavigation().stop();
-                }
-                else
-                {
-                    double speedModifier = 2.0D;
-                    getNavigation().moveTo(getTarget(), speedModifier);
-                }
-
-                getLookControl().setLookAt(getTarget(), 30.0F, 30.0F);
-                double attackIntervalMax = 20.0D;
-                double attackIntervalMin = 20.0D;
-                double attackRadius = 20.0F;
-                if (--this.attackTime == 0)
-                {
-                    if (!flag)
-                    {
-                        return;
-                    }
-
-                    float f = (float) ((float) Math.sqrt(d0) / attackRadius);
-
-                    this.attackTime = Mth.floor(f * (float) (attackIntervalMax - attackIntervalMin) + (float) attackIntervalMin);
-                }
-                else if (this.attackTime < 0)
-                {
-                    this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(d0) / (double) attackRadius, (double) attackIntervalMin, (double) attackIntervalMax));
-                }
-            }
-        });
-        this.targetSelector.addGoal(1, new HurtByTargetGoal(this));
-        this.targetSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, WitherBoss.class, true));
-        this.targetSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, EnderDragon.class, true));
+//        this.goalSelector.addGoal(6, new RangedAttackGoal((RangedAttackMob) this, 2.0D, 20, 20.0F)
+//        {
+//            private int attackTime = -1;
+//            private int seeTime;
+//
+//            @Override
+//            public boolean canUse()
+//            {
+//                super.canUse();
+//                Vec3 thisPos = new Vec3(getX(), getY(), getZ());
+//                Vec3 targetPos = new Vec3(Objects.requireNonNull(getTarget()).getX(), getTarget().getY(), getTarget().getZ());
+//                return thisPos.distanceTo(targetPos) > 10 && hasLineOfSight(getTarget());
+//            }
+//
+//            @Override
+//            public void tick()
+//            {
+//                double d0 = distanceToSqr(Objects.requireNonNull(getTarget()).getX(), getTarget().getY(), getTarget().getZ());
+//                boolean flag = getSensing().hasLineOfSight(getTarget());
+//                if (flag)
+//                {
+//                    ++this.seeTime;
+//                }
+//                else
+//                {
+//                    this.seeTime = 0;
+//                }
+//
+//                double attackRadiusSqr = 20.0D * 20.0D;
+//                if (!(d0 > (double) attackRadiusSqr) && this.seeTime >= 5)
+//                {
+//                    getNavigation().stop();
+//                }
+//                else
+//                {
+//                    double speedModifier = 2.0D;
+//                    getNavigation().moveTo(getTarget(), speedModifier);
+//                }
+//
+//                getLookControl().setLookAt(getTarget(), 30.0F, 30.0F);
+//                double attackIntervalMax = 20.0D;
+//                double attackIntervalMin = 20.0D;
+//                double attackRadius = 20.0F;
+//                if (--this.attackTime == 0)
+//                {
+//                    if (!flag)
+//                    {
+//                        return;
+//                    }
+//
+//                    float f = (float) ((float) Math.sqrt(d0) / attackRadius);
+//
+//                    this.attackTime = Mth.floor(f * (float) (attackIntervalMax - attackIntervalMin) + (float) attackIntervalMin);
+//                }
+//                else if (this.attackTime < 0)
+//                {
+//                    this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(d0) / (double) attackRadius, (double) attackIntervalMin, (double) attackIntervalMax));
+//                }
+//            }
+//        });
     }
 
     @Override
@@ -292,27 +292,30 @@ public class Knight extends Monster implements IAnimatable
         super.setItemSlotAndDropWhenKilled(p_21469_, p_21470_);
     }
 
-    public static AttributeSupplier.Builder createAttributes()
+    public static AttributeSupplier createAttributes()
     {
         return Monster.createMonsterAttributes()
                 .add(Attributes.MAX_HEALTH, 160.0D)
-                .add(Attributes.MOVEMENT_SPEED, (double) 1.0F)
+                .add(Attributes.MOVEMENT_SPEED, 1.0F)
                 .add(Attributes.ATTACK_DAMAGE, 5.0D)
                 .add(Attributes.ATTACK_KNOCKBACK, 1.0D)
-                .add(Attributes.ATTACK_SPEED, (double) 4.0F)
-                .add(Attributes.ARMOR, (double) 10.0F).add(Attributes.ARMOR_TOUGHNESS, (double) 5.0F)
-                .add(Attributes.KNOCKBACK_RESISTANCE, (double) 0.8F).add(Attributes.FOLLOW_RANGE, (double) 20.0F);
+                .add(Attributes.ATTACK_SPEED, 4.0F)
+                .add(Attributes.ARMOR, 10.0F)
+                .add(Attributes.ARMOR_TOUGHNESS, 5.0F)
+                .add(Attributes.KNOCKBACK_RESISTANCE, 0.8F)
+                .add(Attributes.FOLLOW_RANGE, 20.0F)
+                .build();
     }
 
     @Override
     public void registerControllers(AnimationData data)
     {
-
+        data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
     }
 
     @Override
     public AnimationFactory getFactory()
     {
-        return null;
+        return this.factory;
     }
 }

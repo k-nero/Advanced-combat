@@ -1,0 +1,142 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"animation.model.idle": {
+			"loop": true,
+			"bones": {
+				"l_leg": {
+					"rotation": {
+						"vector": [0, 0, 0]
+					}
+				},
+				"l_arm": {
+					"position": {
+						"vector": [0, 0, 0]
+					}
+				}
+			}
+		},
+		"animation.model.walking": {
+			"loop": true,
+			"animation_length": 1,
+			"bones": {
+				"l_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [-30, 0, 0]
+						},
+						"0.5": {
+							"vector": [30, 0, 0]
+						},
+						"1.0": {
+							"vector": [-30, 0, 0]
+						}
+					}
+				},
+				"r_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [15, 0, 0]
+						},
+						"0.5": {
+							"vector": [-20, 0, 0]
+						},
+						"1.0": {
+							"vector": [15, 0, 0]
+						}
+					}
+				},
+				"r_leg": {
+					"rotation": {
+						"0.0": {
+							"vector": [30, 0, 0]
+						},
+						"0.5": {
+							"vector": [-30, 0, 0]
+						},
+						"1.0": {
+							"vector": [30, 0, 0]
+						}
+					}
+				},
+				"l_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [-20, 0, 0]
+						},
+						"0.5": {
+							"vector": [15, 0, 0]
+						},
+						"1.0": {
+							"vector": [-20, 0, 0]
+						}
+					}
+				}
+			}
+		},
+		"animation.model.attack": {
+			"loop": true,
+			"animation_length": 2,
+			"bones": {
+				"r_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [-57.61996, -38.22781, 2.36839]
+						},
+						"1.0": {
+							"vector": [-14.96874, 1.91418, 1.61008]
+						},
+						"1.5": {
+							"vector": [-68.58982, 32.88044, -25.33992]
+						},
+						"2.0": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"body": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, -10, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.5": {
+							"vector": [0, 10, 0]
+						},
+						"2.0": {
+							"vector": [0, 0, 0]
+						}
+					}
+				},
+				"l_arm": {
+					"rotation": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"0.5": {
+							"vector": [0, -10, 0]
+						},
+						"1.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.5": {
+							"vector": [0, 10, 0]
+						},
+						"2.0": {
+							"vector": [0, 0, 0]
+						}
+					}
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}

@@ -14,14 +14,17 @@ import com.kingsman.hyper.reg.block.entity.orbs.OverFluxEntity;
 import com.kingsman.hyper.reg.block.model.orbs.OverFlux;
 import com.kingsman.hyper.reg.item.ItemTier;
 import com.kingsman.hyper.reg.item.orbs.OverFluxItem;
+import com.kingsman.hyper.reg.monster.boss.Knight;
 import com.kingsman.hyper.reg.weapon.Hyperion;
 import com.kingsman.hyper.reg.weapon.ShadowFury;
 import com.kingsman.hyper.reg.weapon.WitherBlade;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.RangedAttribute;
 import net.minecraft.world.item.BlockItem;
@@ -82,7 +85,9 @@ public class RegistryHandler
     public static final RegistryObject<Potion> BLEEDING_IMMUNITY_POTION = POTIONS.register("bleeding_immunity", () -> new Potion(new MobEffectInstance(RegistryHandler.BLEEDING_IMMUNITY.get(), 600, 0)));
     //TODO: finish the structure json file
     //public static final RegistryObject<StructureFeature<?>> TEST_STRUCTURE = DEFERRED_REGISTER_STRUCTURE.register("test_structure", TestStructure::new);
-    public static final RegistryObject<Item> OVERFLUX_ITEM = ITEMS.register("overflux", () -> new OverFluxItem(RegistryHandler.OVERFLUX.get(), new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.RARE)));
+    public static final RegistryObject<Item> OVERFLUX_ITEM = ITEMS.register("overflux", () -> new OverFluxItem(RegistryHandler.OVERFLUX.get(), new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.RARE).stacksTo(1)));
+
+    public static final RegistryObject<EntityType<Knight>> KNIGHT = ENTITY_TYPE.register("knight", () -> EntityType.Builder.of(Knight::new, MobCategory.CREATURE).sized(0.6f, 1.95f).build(new ResourceLocation(ProjectHyper.MODID,"knight" ).toString()));
     public static final RegistryObject<BlockEntityType<OverFluxEntity>> OVERFLUX_ENTITY = BLOCK_ENTITY.register("overflux_entity", () -> BlockEntityType.Builder.of(OverFluxEntity::new, OVERFLUX.get()).build(null));
     private static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block, CreativeModeTab tab)
     {

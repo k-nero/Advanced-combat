@@ -1,8 +1,7 @@
 package com.kingsman.hyper.reg.ability;
 
-import net.minecraft.commands.arguments.EntityAnchorArgument;
+import com.kingsman.hyper.reg.util.IScanEntity;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.TextComponent;
 import net.minecraft.util.Mth;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
@@ -10,17 +9,19 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.level.ClipContext;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.HitResult;
 import net.minecraft.world.phys.Vec3;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Objects;
 
-public class ShadowAssassin
+public class ShadowAssassin implements IScanEntity
 {
     private int radius = 10;
 
@@ -34,20 +35,16 @@ public class ShadowAssassin
         return radius;
     }
 
+    @Override
+    public List<Entity> getEntities(@NotNull Level level, @NotNull Vec3 vec3, float radius)
+    {
+        return IScanEntity.super.getEntities(level, vec3, radius);
+    }
+
     public void deathArea(Level level, Entity source) throws InterruptedException
     {
         Player player = (Player) source;
-        double x = source.getX();
-        double y = source.getY();
-        double z = source.getZ();
-        float f2 = radius * 2.0F;
-        int k1 = Mth.floor(x - (double) f2 - 1.0D);
-        int l1 = Mth.floor(x + (double) f2 + 1.0D);
-        int i2 = Mth.floor(y - (double) f2 - 1.0D);
-        int i1 = Mth.floor(y + (double) f2 + 1.0D);
-        int j2 = Mth.floor(z - (double) f2 - 1.0D);
-        int j1 = Mth.floor(z + (double) f2 + 1.0D);
-        List<Entity> list = level.getEntities(source, new AABB(k1, i2, j2, l1, i1, j1));
+        List<Entity> list = getEntities(level, new Vec3(player.getX(), player.getY(), player.getZ()), getRadius());
         if (!list.isEmpty())
         {
             for (Entity entity : list)

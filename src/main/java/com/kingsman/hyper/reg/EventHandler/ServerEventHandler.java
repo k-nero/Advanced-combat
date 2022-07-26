@@ -2,10 +2,12 @@ package com.kingsman.hyper.reg.EventHandler;
 
 import com.kingsman.hyper.reg.Effects.Bleed;
 import com.kingsman.hyper.reg.Enchantment.LifeStealEnchantment;
+import com.kingsman.hyper.reg.RegistryHandler;
 import com.kingsman.hyper.reg.armor.NecronArmor;
 import com.kingsman.hyper.reg.armor.StormArmor;
 import com.kingsman.hyper.reg.armor.WitherArmor;
 import com.kingsman.hyper.reg.armor.WitherArmorMaterial;
+import com.kingsman.hyper.reg.monster.boss.Knight;
 import com.kingsman.hyper.reg.weapon.Hyperion;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.LivingEntity;
@@ -14,6 +16,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BowItem;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.SwordItem;
+import net.minecraftforge.event.entity.EntityAttributeCreationEvent;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEquipmentChangeEvent;
@@ -80,4 +83,5 @@ public class ServerEventHandler
     {
         return trueDamage;
     }
+
 }
