@@ -15,7 +15,7 @@ public class ClientEventHandler
     @SubscribeEvent
     public static void onClientSetup(FMLClientSetupEvent event)
     {
-        EntityRenderersEvent.RegisterRenderers renderers = new EntityRenderersEvent.RegisterRenderers();
+         new EntityRenderersEvent.RegisterRenderers();
     }
 
     @SubscribeEvent

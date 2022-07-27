@@ -75,6 +75,5 @@ public class InstantTransportation
             }
             entity.teleportTo(x, y, z);
         }
-        ;
     }
 }

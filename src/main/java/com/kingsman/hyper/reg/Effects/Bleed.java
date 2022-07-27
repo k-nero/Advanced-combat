@@ -48,10 +48,10 @@ public class Bleed extends MobEffect
 
     public static void applyingEffect(LivingAttackEvent event)
     {
-        Player player = null;
-        if (event.getSource().getEntity() instanceof Player)
+        LivingEntity attacker = null;
+        if (event.getSource().getEntity() instanceof LivingEntity)
         {
-            player = (Player) event.getSource().getEntity();
+            attacker = (LivingEntity) event.getSource().getEntity();
         }
         LivingEntity target = null;
         if (event.getEntity() instanceof LivingEntity)
@@ -63,9 +63,9 @@ public class Bleed extends MobEffect
         {
             return;
         }
-        if (player != null)
+        if (attacker != null)
         {
-            ItemStack itemStack = player.getMainHandItem();
+            ItemStack itemStack = attacker.getMainHandItem();
             int level = EnchantmentHelper.getItemEnchantmentLevel(RegistryHandler.BLOOD_LOST.get(), itemStack);
             if (level >= 0)
             {
