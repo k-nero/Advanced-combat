@@ -2,7 +2,16 @@ package com.kingsman.hyper.reg.monster.boss;
 
 import com.kingsman.hyper.reg.RegistryHandler;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.syncher.EntityDataAccessor;
+import net.minecraft.network.syncher.EntityDataSerializers;
+import net.minecraft.network.syncher.SynchedEntityData;
+import net.minecraft.server.level.ServerBossEvent;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.util.Mth;
+import net.minecraft.world.BossEvent;
 import net.minecraft.world.DifficultyInstance;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.*;
 import net.minecraft.world.entity.ai.attributes.AttributeSupplier;
@@ -12,16 +21,19 @@ import net.minecraft.world.entity.ai.goal.MeleeAttackGoal;
 import net.minecraft.world.entity.ai.goal.RandomLookAroundGoal;
 import net.minecraft.world.entity.ai.goal.RandomStrollGoal;
 import net.minecraft.world.entity.ai.goal.target.NearestAttackableTargetGoal;
+import net.minecraft.world.entity.ai.navigation.GroundPathNavigation;
 import net.minecraft.world.entity.boss.enderdragon.EnderDragon;
 import net.minecraft.world.entity.monster.Monster;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.ServerLevelAccessor;
 import net.minecraft.world.phys.HitResult;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.util.LazyOptional;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatable;
+import software.bernie.geckolib3.core.IAnimationTickable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
 import software.bernie.geckolib3.core.controller.AnimationController;
@@ -29,12 +41,96 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-public class Knight extends Monster implements IAnimatable
+import java.util.Objects;
+
+public class Knight extends Monster implements IAnimatable, IAnimationTickable
 {
     private final AnimationFactory factory = new AnimationFactory( this);
+    public static final EntityDataAccessor<Integer> VARIANT = SynchedEntityData.defineId(Knight.class, EntityDataSerializers.INT);
+    private final ServerBossEvent bossInfo = (ServerBossEvent) (new ServerBossEvent(this.getDisplayName(), BossEvent.BossBarColor.PURPLE, BossEvent.BossBarOverlay.PROGRESS)).setDarkenScreen(true).setCreateWorldFog(true);
+
     public Knight(EntityType<? extends Monster> entityType, Level level)
     {
         super(entityType, level);
+    }
+
+    @Override
+    public void defineSynchedData()
+    {
+        super.defineSynchedData();
+        this.getEntityData().define(VARIANT, 0);
+    }
+    public void readAdditionalSaveData(@NotNull CompoundTag tag)
+    {
+        super.readAdditionalSaveData(tag);
+        this.setVariant(tag.getInt("Variant"));
+        if (this.hasCustomName())
+        {
+            this.bossInfo.setName(Objects.requireNonNull(this.getCustomName()));
+        }
+    }
+
+    @Override
+    public void startSeenByPlayer(@NotNull ServerPlayer p_20119_)
+    {
+        super.startSeenByPlayer(p_20119_);
+        this.bossInfo.addPlayer(p_20119_);
+    }
+
+    @Override
+    public void stopSeenByPlayer(@NotNull ServerPlayer p_20174_)
+    {
+        super.stopSeenByPlayer(p_20174_);
+        this.bossInfo.removePlayer(p_20174_);
+    }
+
+    public void setCustomName(Component name)
+    {
+        super.setCustomName(name);
+        this.bossInfo.setName(name);
+    }
+    public int getVariant()
+    {
+        return Mth.clamp((Integer) this.entityData.get(VARIANT), 1, 2);
+    }
+
+    public int getVariants()
+    {
+        return 2;
+    }
+
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn,
+                                        @NotNull MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag)
+    {
+        spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
+        ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
+        populateDefaultEquipmentSlots(difficultyIn);
+        this.setVariant(this.random.nextInt());
+        return spawnDataIn;
+    }
+
+    public void setVariant(int variant)
+    {
+        this.entityData.set(VARIANT, variant);
+    }
+
+    @Override
+    public boolean isBaby()
+    {
+        return false;
+    }
+
+    @Override
+    public @NotNull MobType getMobType()
+    {
+        return MobType.UNDEAD;
+    }
+
+    @Override
+    public void customServerAiStep()
+    {
+        super.customServerAiStep();
+        this.bossInfo.setProgress(this.getHealth() / this.getMaxHealth());
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
@@ -69,7 +165,7 @@ public class Knight extends Monster implements IAnimatable
     @Override
     public @NotNull HumanoidArm getMainArm()
     {
-        return super.getMainArm();
+        return HumanoidArm.RIGHT;
     }
 
     @Override
@@ -275,6 +371,7 @@ public class Knight extends Monster implements IAnimatable
     @Override
     protected void populateDefaultEquipmentSlots(@NotNull DifficultyInstance p_21383_)
     {
+        super.populateDefaultEquipmentSlots(p_21383_);
         ItemStack stack = new ItemStack(RegistryHandler.WITHER_BLADE.get());
         stack.enchant(RegistryHandler.BLOOD_LOST.get(), 1);
         this.setItemSlot(EquipmentSlot.MAINHAND, stack);
@@ -317,5 +414,35 @@ public class Knight extends Monster implements IAnimatable
     public AnimationFactory getFactory()
     {
         return this.factory;
+    }
+
+    @Override
+    public int tickTimer()
+    {
+        return tickCount;
+    }
+
+    @Override
+    public void knockback(double p_147241_, double p_147242_, double p_147243_)
+    {
+        super.knockback(0, 0 , 0);
+    }
+
+    @Override
+    public void setGuaranteedDrop(@NotNull EquipmentSlot p_21509_)
+    {
+        super.setGuaranteedDrop(p_21509_);
+    }
+
+    @Override
+    public void swing(@NotNull InteractionHand p_21007_)
+    {
+        super.swing(p_21007_);
+    }
+
+    @Override
+    public void setItemInHand(@NotNull InteractionHand p_21009_, @NotNull ItemStack p_21010_)
+    {
+        super.setItemInHand(p_21009_, p_21010_);
     }
 }
