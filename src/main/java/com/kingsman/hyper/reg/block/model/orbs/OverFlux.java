@@ -40,4 +40,5 @@ public class OverFlux extends BaseEntityBlock implements EntityBlock
     {
         return p_153214_ == RegistryHandler.OVERFLUX_ENTITY.get() ? OverFluxEntity::tick : null;
     }
+
 }

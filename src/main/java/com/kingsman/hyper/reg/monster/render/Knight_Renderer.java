@@ -1,7 +1,6 @@
 package com.kingsman.hyper.reg.monster.render;
 
 import com.kingsman.hyper.ProjectHyper;
-import com.kingsman.hyper.reg.RegistryHandler;
 import com.kingsman.hyper.reg.monster.boss.Knight;
 import com.kingsman.hyper.reg.monster.render.model.KnightModel;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -13,7 +12,6 @@ import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.geo.render.built.GeoBone;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
