@@ -35,7 +35,7 @@ public class WitherImpact extends Explosion implements IScanEntity
         return IScanEntity.super.getEntities(level, vec3, radius);
     }
 
-    public void BlastAura(float radius, Level level, Entity source, double x, double y, double z, float dmg)
+    public void BlastAura(float radius, Level level, double x, double y, double z, float dmg)
     {
         List<Entity> list =  getEntities(level, new Vec3(x, y, z), radius);
         net.minecraftforge.event.ForgeEventFactory.onExplosionDetonate(level, this, list, 2 * radius);
@@ -68,7 +68,7 @@ public class WitherImpact extends Explosion implements IScanEntity
                 }
                 p_40921_.addEffect(new MobEffectInstance(MobEffects.ABSORPTION, 100, 1), p_40921_);
             }
-            this.BlastAura(8, p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), AOE + dmg);
+            this.BlastAura(8, p_40920_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), AOE + dmg);
         }
         else
         {

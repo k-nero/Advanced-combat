@@ -1,5 +1,7 @@
 package com.kingsman.hyper.reg.DataGen.loot;
 
-public class ModEntityLootTables
+import net.minecraft.data.loot.EntityLoot;
+
+public class ModEntityLootTables extends EntityLoot
 {
 }

@@ -40,6 +40,7 @@ import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.levelgen.feature.StructureFeature;
 import net.minecraft.world.level.material.Material;
 import net.minecraft.world.level.material.MaterialColor;
+import net.minecraftforge.common.ForgeSpawnEggItem;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -82,12 +83,11 @@ public class RegistryHandler
     public static final RegistryObject<Item> NECRON_BOOTS = ITEMS.register("necron_boots", () -> new NecronArmor(WitherArmorMaterial.NECRON, EquipmentSlot.FEET, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.EPIC).fireResistant()));
     public static final RegistryObject<Block> OVERFLUX = BLOCKS.register("overflux", () -> new OverFlux(BlockBehaviour.Properties.of(Material.STONE).noOcclusion()));
     public static final RegistryObject<Item> SHADOW_FURY = ITEMS.register("shadow_fury", () -> new ShadowFury(ItemTier.WITHER, 8, -3f, new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.RARE)));
-
     public static final RegistryObject<Potion> BLEEDING_IMMUNITY_POTION = POTIONS.register("bleeding_immunity", () -> new Potion(new MobEffectInstance(RegistryHandler.BLEEDING_IMMUNITY.get(), 600, 0)));
     //TODO: finish the structure json file
     //public static final RegistryObject<StructureFeature<?>> TEST_STRUCTURE = DEFERRED_REGISTER_STRUCTURE.register("test_structure", TestStructure::new);
     public static final RegistryObject<Item> OVERFLUX_ITEM = ITEMS.register("overflux", () -> new OverFluxItem(RegistryHandler.OVERFLUX.get(), new Item.Properties().tab(CreativeTab.ITEM_GROUP).rarity(Rarity.RARE).stacksTo(1)));
-
+    public static final RegistryObject<Item> KNIGHT_SPAWN_EGG = ITEMS.register("knight_spawn_egg", () -> new ForgeSpawnEggItem(RegistryHandler.KNIGHT, 0x000000, 0xAA0000, new Item.Properties().tab(CreativeTab.ITEM_GROUP)));
     public static final RegistryObject<EntityType<Knight>> KNIGHT = ENTITY_TYPE.register("knight", () -> EntityType.Builder.of(Knight::new, MobCategory.CREATURE).sized(0.6f, 1.95f).build(new ResourceLocation(ProjectHyper.MODID,"knight" ).toString()));
     public static final RegistryObject<BlockEntityType<OverFluxEntity>> OVERFLUX_ENTITY = BLOCK_ENTITY.register("overflux_entity", () -> BlockEntityType.Builder.of(OverFluxEntity::new, OVERFLUX.get()).build(null));
     private static <T extends Block> RegistryObject<T> registryBlock(String name, Supplier<T> block, CreativeModeTab tab)

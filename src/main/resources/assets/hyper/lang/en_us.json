@@ -27,5 +27,6 @@
   "item.minecraft.splash_potion.effect.bleeding_immunity": "Splash Potion of Bleeding Immunity",
   "item.minecraft.potion.effect.bleeding_immunity": "Potion of Bleeding Immunity",
   "block.hyper.overflux": "Overflux",
-  "entity.hyper.knight" : "Wither Knight"
+  "entity.hyper.knight" : "Wither Knight",
+  "item.hyper.knight_spawn_egg" : "Knight Spawn Egg"
 }

@@ -7,7 +7,6 @@ import net.minecraft.world.item.ArmorMaterial;
 
 public class WitherArmor extends ArmorItem
 {
-    public static boolean isSwordHolding;
 
     public WitherArmor(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_)
     {

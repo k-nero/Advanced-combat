@@ -5,7 +5,6 @@ import com.kingsman.hyper.reg.RegistryHandler;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.ItemModelBuilder;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
@@ -18,16 +17,16 @@ public class HyperItemModelProvider extends ItemModelProvider
         super(generator, ProjectHyper.MODID, existingFileHelper);
     }
 
-    private ItemModelBuilder simpleItem(Item item)
+    private void simpleItem(Item item)
     {
-        return withExistingParent(Objects.requireNonNull(item.getRegistryName()).getPath(),
+        withExistingParent(Objects.requireNonNull(item.getRegistryName()).getPath(),
                 new ResourceLocation("item/generated")).texture("layer0",
                 new ResourceLocation(ProjectHyper.MODID, "item/" + item.getRegistryName().getPath()));
     }
 
-    private ItemModelBuilder handheldItem(Item item)
+    private void handheldItem(Item item)
     {
-        return withExistingParent(Objects.requireNonNull(item.getRegistryName()).getPath(),
+        withExistingParent(Objects.requireNonNull(item.getRegistryName()).getPath(),
                 new ResourceLocation("item/handheld")).texture("layer0",
                 new ResourceLocation(ProjectHyper.MODID, "item/" + item.getRegistryName().getPath()));
     }
