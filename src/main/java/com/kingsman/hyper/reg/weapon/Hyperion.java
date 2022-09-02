@@ -11,7 +11,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.level.Explosion;
 import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -53,7 +52,7 @@ public class Hyperion extends WitherBlade
         ItemStack itemstack = p_40921_.getItemInHand(p_40922_);
         if (p_40922_ == InteractionHand.MAIN_HAND)
         {
-            new WitherImpact(p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), 8, Explosion.BlockInteraction.NONE, AbilityDmg, baseAbilityDmg);
+            new WitherImpact(p_40920_, p_40921_, p_40921_.getX(), p_40921_.getY(), p_40921_.getZ(), 8, AbilityDmg, baseAbilityDmg);
         }
         return InteractionResultHolder.success(itemstack);
     }

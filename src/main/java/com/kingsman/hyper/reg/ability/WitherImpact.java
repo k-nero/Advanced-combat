@@ -23,7 +23,7 @@ import java.util.List;
 
 public class WitherImpact extends Explosion implements IScanEntity
 {
-    public WitherImpact(Level p_151471_, @Nullable Entity p_151472_, double p_151473_, double p_151474_, double p_151475_, float p_151476_, BlockInteraction none, int AOE, float dmg)
+    public WitherImpact(Level p_151471_, @Nullable Entity p_151472_, double p_151473_, double p_151474_, double p_151475_, float p_151476_, int AOE, float dmg)
     {
         super(p_151471_, p_151472_, p_151473_, p_151474_, p_151475_, p_151476_);
         Implosion(p_151471_, (Player) p_151472_, AOE, dmg);

@@ -20,17 +20,6 @@ public class InstantTransportation
         pos = desPos(pickedPos());
     }
 
-
-    public void setDistance(int distance)
-    {
-        InstantTransportation.distance = distance;
-    }
-
-    public int getDistance()
-    {
-        return distance;
-    }
-
     //get picked block location
     public HitResult pickedPos()
     {

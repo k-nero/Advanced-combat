@@ -1,6 +1,7 @@
 package com.kingsman.hyper.reg.monster.boss;
 
 import com.kingsman.hyper.reg.RegistryHandler;
+import net.minecraft.core.particles.ParticleTypes;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.syncher.EntityDataAccessor;
@@ -99,8 +100,7 @@ public class Knight extends Monster implements IAnimatable, IAnimationTickable
         return 2;
     }
 
-    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn,
-                                        @NotNull MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag)
+    public SpawnGroupData finalizeSpawn(@NotNull ServerLevelAccessor worldIn, @NotNull DifficultyInstance difficultyIn, @NotNull MobSpawnType reason, SpawnGroupData spawnDataIn, CompoundTag dataTag)
     {
         spawnDataIn = super.finalizeSpawn(worldIn, difficultyIn, reason, spawnDataIn, dataTag);
         ((GroundPathNavigation)this.getNavigation()).setCanOpenDoors(true);
@@ -304,68 +304,8 @@ public class Knight extends Monster implements IAnimatable, IAnimationTickable
         this.goalSelector.addGoal(6, new LookAtPlayerGoal(this, Player.class, 8.0F));
         this.goalSelector.addGoal(6, new RandomLookAroundGoal(this));
         this.goalSelector.addGoal(6, new RandomStrollGoal(this, 1.0D));
-        this.goalSelector.addGoal(6, new MeleeAttackGoal(this, 1.0D, true));
-        this.goalSelector.addGoal(2, new NearestAttackableTargetGoal<>(this, Player.class, true));
-//        this.goalSelector.addGoal(6, new RangedAttackGoal((RangedAttackMob) this, 2.0D, 20, 20.0F)
-//        {
-//            private int attackTime = -1;
-//            private int seeTime;
-//
-//            @Override
-//            public boolean canUse()
-//            {
-//                super.canUse();
-//                Vec3 thisPos = new Vec3(getX(), getY(), getZ());
-//                Vec3 targetPos = new Vec3(Objects.requireNonNull(getTarget()).getX(), getTarget().getY(), getTarget().getZ());
-//                return thisPos.distanceTo(targetPos) > 10 && hasLineOfSight(getTarget());
-//            }
-//
-//            @Override
-//            public void tick()
-//            {
-//                double d0 = distanceToSqr(Objects.requireNonNull(getTarget()).getX(), getTarget().getY(), getTarget().getZ());
-//                boolean flag = getSensing().hasLineOfSight(getTarget());
-//                if (flag)
-//                {
-//                    ++this.seeTime;
-//                }
-//                else
-//                {
-//                    this.seeTime = 0;
-//                }
-//
-//                double attackRadiusSqr = 20.0D * 20.0D;
-//                if (!(d0 > (double) attackRadiusSqr) && this.seeTime >= 5)
-//                {
-//                    getNavigation().stop();
-//                }
-//                else
-//                {
-//                    double speedModifier = 2.0D;
-//                    getNavigation().moveTo(getTarget(), speedModifier);
-//                }
-//
-//                getLookControl().setLookAt(getTarget(), 30.0F, 30.0F);
-//                double attackIntervalMax = 20.0D;
-//                double attackIntervalMin = 20.0D;
-//                double attackRadius = 20.0F;
-//                if (--this.attackTime == 0)
-//                {
-//                    if (!flag)
-//                    {
-//                        return;
-//                    }
-//
-//                    float f = (float) ((float) Math.sqrt(d0) / attackRadius);
-//
-//                    this.attackTime = Mth.floor(f * (float) (attackIntervalMax - attackIntervalMin) + (float) attackIntervalMin);
-//                }
-//                else if (this.attackTime < 0)
-//                {
-//                    this.attackTime = Mth.floor(Mth.lerp(Math.sqrt(d0) / (double) attackRadius, (double) attackIntervalMin, (double) attackIntervalMax));
-//                }
-//            }
-//        });
+        this.goalSelector.addGoal(2, new MeleeAttackGoal(this, 1.0D, true));
+        this.goalSelector.addGoal(1, new NearestAttackableTargetGoal<>(this, Player.class, true));
     }
 
     @Override
@@ -405,6 +345,7 @@ public class Knight extends Monster implements IAnimatable, IAnimationTickable
     }
 
     @Override
+    @SuppressWarnings("all")
     public void registerControllers(AnimationData data)
     {
         data.addAnimationController(new AnimationController(this, "controller", 0, this::predicate));
@@ -420,6 +361,13 @@ public class Knight extends Monster implements IAnimatable, IAnimationTickable
     public int tickTimer()
     {
         return tickCount;
+    }
+
+    @Override
+    public void tick()
+    {
+        super.tick();
+        this.level.addParticle(ParticleTypes.EFFECT, this.getX(), this.getY(this.random.nextDouble() / 5.0D), this.getZ(), 0.0D, this.random.nextDouble() / 5.0D, 0.5D);
     }
 
     @Override

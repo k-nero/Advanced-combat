@@ -16,6 +16,7 @@ import org.jetbrains.annotations.Nullable;
 
 public class OverFlux extends BaseEntityBlock implements EntityBlock
 {
+    public int counter = 0;
     public OverFlux(Properties p_49224_)
     {
         super(p_49224_);

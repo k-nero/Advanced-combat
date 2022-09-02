@@ -2,6 +2,7 @@ package com.kingsman.hyper.reg.block.entity.orbs;
 
 import com.kingsman.hyper.reg.RegistryHandler;
 import com.kingsman.hyper.reg.util.IScanEntity;
+import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -25,6 +26,7 @@ import java.util.Objects;
 
 public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEntity
 {
+    public static int counter = 0;
     private final AnimationFactory factory = new AnimationFactory(this);
 
     public OverFluxEntity(BlockPos p_155229_, BlockState p_155230_)
@@ -35,7 +37,7 @@ public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEnt
     @Override
     public void registerControllers(AnimationData data)
     {
-        data.addAnimationController(new AnimationController<OverFluxEntity>(this, "controller", 0, this::predicate));
+        data.addAnimationController(new AnimationController<>(this, "controller", 0, this::predicate));
     }
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
@@ -43,7 +45,6 @@ public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEnt
         event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.model.rotation", true));
         return PlayState.CONTINUE;
     }
-
 
     @Override
     public AnimationFactory getFactory()
@@ -74,13 +75,20 @@ public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEnt
                 }
             }
         }
+        counter++;
+        if(counter >= 600)
+        {
+            counter = 0;
+            level.destroyBlock(blockPos, false);
+
+        }
     }
 
     public static void applySupportingEffects(Player player)
     {
         if (player.hasEffect(MobEffects.REGENERATION))
         {
-            if (Objects.requireNonNull(player.getEffect(MobEffects.REGENERATION)).getDuration() < 30)
+            if (Objects.requireNonNull(player.getEffect(MobEffects.REGENERATION)).getDuration() < 1)
             {
                 player.removeEffect(MobEffects.REGENERATION);
                 player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 300, 1));
