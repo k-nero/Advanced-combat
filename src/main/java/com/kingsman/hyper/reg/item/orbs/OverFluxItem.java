@@ -1,14 +1,20 @@
 package com.kingsman.hyper.reg.item.orbs;
 
+import com.kingsman.hyper.reg.RegistryHandler;
+import com.kingsman.hyper.reg.ability.ShadowAssassin;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Rarity;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraftforge.client.IItemRenderProperties;
 import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatable;
@@ -18,7 +24,6 @@ import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
 
-import java.util.Objects;
 import java.util.function.Consumer;
 
 public class OverFluxItem extends BlockItem implements IAnimatable
@@ -68,11 +73,13 @@ public class OverFluxItem extends BlockItem implements IAnimatable
         BlockPlaceContext blockplacecontext = this.updatePlacementContext(p_40577_);
         assert blockplacecontext != null;
         ItemStack itemstack = blockplacecontext.getItemInHand();
-        Level level = blockplacecontext.getLevel();
-        BlockPos blockpos = blockplacecontext.getClickedPos();
         itemstack.grow(1);
         return InteractionResult.SUCCESS;
     }
 
-
+    @Override
+    public @NotNull Rarity getRarity(@NotNull ItemStack p_41461_)
+    {
+        return Rarity.EPIC;
+    }
 }

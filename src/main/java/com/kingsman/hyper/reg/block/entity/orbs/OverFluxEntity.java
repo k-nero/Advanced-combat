@@ -80,18 +80,21 @@ public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEnt
         {
             counter = 0;
             level.destroyBlock(blockPos, false);
-
+            level.removeBlock(blockPos, false);
+            level.removeBlockEntity(blockPos);
         }
     }
 
     public static void applySupportingEffects(Player player)
     {
-        if (player.hasEffect(MobEffects.REGENERATION))
+        if (player.hasEffect(MobEffects.REGENERATION) || player.hasEffect(MobEffects.MOVEMENT_SPEED))
         {
             if (Objects.requireNonNull(player.getEffect(MobEffects.REGENERATION)).getDuration() < 1)
             {
                 player.removeEffect(MobEffects.REGENERATION);
                 player.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 300, 1));
+                player.removeEffect(MobEffects.MOVEMENT_SPEED);
+                player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 300, 1));
             }
         }
         else
