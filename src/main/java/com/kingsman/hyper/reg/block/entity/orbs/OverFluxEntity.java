@@ -2,7 +2,6 @@ package com.kingsman.hyper.reg.block.entity.orbs;
 
 import com.kingsman.hyper.reg.RegistryHandler;
 import com.kingsman.hyper.reg.util.IScanEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -56,13 +55,7 @@ public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEnt
     {
         if (!level.isClientSide())
         {
-            List<Entity> list = new IScanEntity(){
-                @Override
-                public List<Entity> getEntities(@NotNull Level level, @NotNull Vec3 vec3, float radius)
-                {
-                    return IScanEntity.super.getEntities(level, vec3, radius);
-                }
-            }.getEntities(level, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 10);
+            List<Entity> list = new IScanEntity(){}.getEntities(level, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 10);
 
             if (!list.isEmpty())
             {
@@ -85,7 +78,7 @@ public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEnt
         }
     }
 
-    public static void applySupportingEffects(Player player)
+    public static void applySupportingEffects( Player player)
     {
         if (player.hasEffect(MobEffects.REGENERATION) || player.hasEffect(MobEffects.MOVEMENT_SPEED))
         {
