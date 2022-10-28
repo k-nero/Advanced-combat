@@ -2,7 +2,6 @@ package com.kingsman.hyper;
 
 import com.kingsman.hyper.reg.RegistryHandler;
 import com.kingsman.hyper.reg.monster.render.Knight_Renderer;
-import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRenderers;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;

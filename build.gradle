@@ -127,15 +127,15 @@ repositories {
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
-    maven{
+    maven {
         // location of a maven mirror for JEI files, as a fallback
         url = "https://cursemaven.com"
     }
+
     maven
             {
                 url 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
             }
-
 }
 
 dependencies {

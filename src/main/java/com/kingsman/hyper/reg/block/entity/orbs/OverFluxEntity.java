@@ -77,7 +77,7 @@ public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEnt
         }
     }
 
-    public static void applySupportingEffects(Player player)
+    public static void applySupportingEffects( Player player)
     {
         if (player.hasEffect(MobEffects.REGENERATION) || player.hasEffect(MobEffects.MOVEMENT_SPEED))
         {
