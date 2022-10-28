@@ -2,7 +2,6 @@ package com.kingsman.hyper.reg.block.entity.orbs;
 
 import com.kingsman.hyper.reg.RegistryHandler;
 import com.kingsman.hyper.reg.util.IScanEntity;
-import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
@@ -12,7 +11,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.NotNull;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
@@ -56,13 +54,7 @@ public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEnt
     {
         if (!level.isClientSide())
         {
-            List<Entity> list = new IScanEntity(){
-                @Override
-                public List<Entity> getEntities(@NotNull Level level, @NotNull Vec3 vec3, float radius)
-                {
-                    return IScanEntity.super.getEntities(level, vec3, radius);
-                }
-            }.getEntities(level, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 10);
+            List<Entity> list = new IScanEntity(){}.getEntities(level, new Vec3(blockPos.getX(), blockPos.getY(), blockPos.getZ()), 10);
 
             if (!list.isEmpty())
             {
@@ -79,8 +71,8 @@ public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEnt
         if(counter >= 600)
         {
             counter = 0;
-            level.destroyBlock(blockPos, false);
-            level.removeBlock(blockPos, false);
+            level.destroyBlock(blockPos, true);
+            level.removeBlock(blockPos, true);
             level.removeBlockEntity(blockPos);
         }
     }
