@@ -51,8 +51,10 @@ public class Knight_Renderer extends GeoEntityRenderer<Knight>
     }
 
     @Override
-    public void renderRecursively(GeoBone bone, PoseStack stack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
-        if (bone.getName().equals("r_arm")) { // rArmRuff is the name of the bone you to set the item to attach too. Please see Note
+    public void renderRecursively(GeoBone bone, PoseStack stack, VertexConsumer bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha)
+    {
+        if (bone.getName().equals("r_arm"))
+        { // rArmRuff is the name of the bone you to set the item to attach too. Please see Note
             stack.pushPose();
             // You'll need to play around with these to get item to render in the correct orientation
             stack.mulPose(Vector3f.XP.rotationDegrees(-75));

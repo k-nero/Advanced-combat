@@ -63,16 +63,16 @@ public class Hyperion extends WitherBlade
     {
 
         super.appendHoverText(p_41421_, p_41422_, p_41423_, p_41424_);
-        p_41423_.add(new TextComponent("\u00A76Ability: Death's Touch \u00A7r"));
-        p_41423_.add(new TextComponent("\u00A77Upon hitting enemy inflict"));
-        p_41423_.add(new TextComponent("\u00A77the wither effect for 20 seconds."));
+        p_41423_.add(new TextComponent("§6Ability: Death's Touch §r"));
+        p_41423_.add(new TextComponent("§7Upon hitting enemy inflict"));
+        p_41423_.add(new TextComponent("§7the wither effect for 20 seconds."));
         p_41423_.add(new TextComponent(""));
-        p_41423_.add(new TextComponent("\u00A76Ability: Wither Impact \u00A7r\u00A7e\u00A7lRIGHT CLICK \u00A7r"));
-        p_41423_.add(new TextComponent("\u00A77When implode dealing \u00A7r").append(String.valueOf(AbilityDmg + baseAbilityDmg)).withStyle(ChatFormatting.AQUA));
-        p_41423_.add(new TextComponent("\u00A77damages to nearby enemies. "));
-        p_41423_.add(new TextComponent("\u00A77Also applies the Absorption effect\u00A7r"));
-        p_41423_.add(new TextComponent("\u00A77in 5 seconds.\u00A7r"));
-        p_41423_.add(new TextComponent("\u00A78Shield cool-downs: \u00A7r\u00A735 seconds"));
-        p_41423_.add(new TextComponent("\u00A78Health cost: \u00A7r\u00A7c2 HP"));
+        p_41423_.add(new TextComponent("§6Ability: Wither Impact §r§e§lRIGHT CLICK §r"));
+        p_41423_.add(new TextComponent("§7When implode dealing §r").append(String.valueOf(AbilityDmg + baseAbilityDmg)).withStyle(ChatFormatting.AQUA));
+        p_41423_.add(new TextComponent("§7damages to nearby enemies. "));
+        p_41423_.add(new TextComponent("§7Also applies the Absorption effect§r"));
+        p_41423_.add(new TextComponent("§7in 5 seconds.§r"));
+        p_41423_.add(new TextComponent("§8Shield cool-downs: §r§35 seconds"));
+        p_41423_.add(new TextComponent("§8Health cost: §r§c2 HP"));
     }
 }
