@@ -71,8 +71,8 @@ public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEnt
         if(counter >= 600)
         {
             counter = 0;
-            level.destroyBlock(blockPos, false);
-            level.removeBlock(blockPos, false);
+            level.destroyBlock(blockPos, true);
+            level.removeBlock(blockPos, true);
             level.removeBlockEntity(blockPos);
         }
     }
