@@ -33,8 +33,8 @@ public class StormArmor extends WitherArmor
     public StormArmor(ArmorMaterial p_40386_, EquipmentSlot p_40387_, Properties p_40388_)
     {
         super(p_40386_, p_40387_, p_40388_);
+        defaultModifiers = getDefaultAttributeModifiers(p_40387_);
         ImmutableMultimap.Builder<Attribute, AttributeModifier> builder = ImmutableMultimap.builder();
-        defaultModifiers = super.getDefaultAttributeModifiers(p_40387_);
         for (Attribute attributes : defaultModifiers.keySet())
         {
             Collection<AttributeModifier> attributeModifiers = defaultModifiers.get(attributes);

@@ -1,5 +1,6 @@
 package com.kingsman.hyper.reg.block.entity.orbs;
 
+import com.google.j2objc.annotations.LoopTranslation;
 import com.kingsman.hyper.reg.RegistryHandler;
 import com.kingsman.hyper.reg.util.IScanEntity;
 import net.minecraft.core.BlockPos;
@@ -11,13 +12,16 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.phys.Vec3;
+import software.bernie.geckolib3.GeckoLib;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.PlayState;
 import software.bernie.geckolib3.core.builder.AnimationBuilder;
+import software.bernie.geckolib3.core.builder.ILoopType;
 import software.bernie.geckolib3.core.controller.AnimationController;
 import software.bernie.geckolib3.core.event.predicate.AnimationEvent;
 import software.bernie.geckolib3.core.manager.AnimationData;
 import software.bernie.geckolib3.core.manager.AnimationFactory;
+import software.bernie.geckolib3.util.GeckoLibUtil;
 
 import java.util.List;
 import java.util.Objects;
@@ -25,7 +29,7 @@ import java.util.Objects;
 public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEntity
 {
     public static int counter = 0;
-    private final AnimationFactory factory = new AnimationFactory(this);
+    private final AnimationFactory factory = GeckoLibUtil.createFactory(this);
 
     public OverFluxEntity(BlockPos p_155229_, BlockState p_155230_)
     {
@@ -40,7 +44,7 @@ public class OverFluxEntity extends BlockEntity implements IAnimatable, IScanEnt
 
     private <E extends IAnimatable> PlayState predicate(AnimationEvent<E> event)
     {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.model.rotation", true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("animation.model.rotation", ILoopType.EDefaultLoopTypes.LOOP));
         return PlayState.CONTINUE;
     }
 

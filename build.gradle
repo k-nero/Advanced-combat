@@ -118,20 +118,19 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
     maven {
-        // location of the maven that hosts JEI files
-        name = "Progwml6 maven"
-        url = "https://dvs1.progwml6.com/files/maven/"
+        // location of a maven mirror for JEI files, as a fallback
+        url = "https://cursemaven.com"
     }
+//    maven {
+//        // location of the maven that hosts JEI files
+//        name = "Progwml6 maven"
+//        url = "https://dvs1.progwml6.com/files/maven/"
+//    }
     maven {
         // location of a maven mirror for JEI files, as a fallback
         name = "ModMaven"
         url = "https://modmaven.dev"
     }
-    maven {
-        // location of a maven mirror for JEI files, as a fallback
-        url = "https://cursemaven.com"
-    }
-
     maven {
         url = 'https://dl.cloudsmith.io/public/geckolib3/geckolib/maven/'
     }
